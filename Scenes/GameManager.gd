@@ -8,6 +8,9 @@ const game_scene_path = "res://Scenes/GameScreen/Main/Main.tscn"
 const options_scene_path = "res://Scenes/OptionsScreen/Main/Main.tscn"
 const credits_scene_path = "res://Scenes/CreditsScreen/Main/Main.tscn"
 
+# Save path
+const save_path = "user://user.save"
+
 # Area size in tiles
 # 2 areas loaded at once, the area the player is on and the next one
 const area_size = Vector2(12, 10)
@@ -15,6 +18,7 @@ const area_size = Vector2(12, 10)
 # === Node methods ===
 
 func _ready():
+	load_game()
 	randomize()
 
 # === Custom methods ===
@@ -30,3 +34,58 @@ func change_scene(new_scene_path):
 	var next_scene_resource = load(new_scene_path)
 	var next_scene = next_scene_resource.instance()
 	root.add_child(next_scene)
+
+func save_game():
+	var nodes_to_save = get_tree().get_nodes_in_group("ToSave")
+	var save_file = File.new()
+	save_file.open_encrypted_with_pass(save_path, File.WRITE, OS.get_unique_id())
+	for node in nodes_to_save:
+		# Check the node is an instanced scene so it can be instanced again during load.
+		if node.filename.empty():
+			print("persistent node '%s' is not an instanced scene, skipped" % node.name)
+			continue
+
+		# Check the node has a save function.
+		if !node.has_method("save"):
+			print("persistent node '%s' is missing a save() function, skipped" % node.name)
+			continue
+
+		# Call the node's save function.
+		var node_data = node.call("save")
+
+		# Store the save dictionary as a new line in the save file.
+		save_file.store_line(to_json(node_data))
+	save_file.close()
+
+func load_game():
+	var save_file = File.new()
+	if not save_file.file_exists(save_path):
+		return
+
+	# Load the file line by line and process that dictionary to restore
+	# the object it represents.
+	save_file.open_encrypted_with_pass(save_path, File.READ, OS.get_unique_id())
+	while save_file.get_position() < save_file.get_len():
+		# Get the saved dictionary from the next line in the save file
+		var node_data = parse_json(save_file.get_line())
+
+		# Firstly, we need to create the object and add it to the tree and set its position.
+		var new_object = load(node_data["filename"]).instance()
+		get_node(node_data["parent"]).add_child(new_object)
+		new_object.position = Vector2(node_data["pos_x"], node_data["pos_y"])
+
+		# Now we set the remaining variables.
+		for i in node_data.keys():
+			if i == "filename" or i == "parent" or i == "pos_x" or i == "pos_y":
+				continue
+			new_object.set(i, node_data[i])
+
+	save_file.close()
+
+
+
+
+
+
+
+
