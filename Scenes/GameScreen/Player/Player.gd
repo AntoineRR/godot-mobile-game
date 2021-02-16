@@ -7,6 +7,13 @@ var is_holding = false
 func _process(_delta):
 	if is_holding:
 		self.apply_impulse(Vector2.ZERO, impulse)
+	
+	# Keyboard input for debug
+	if Input.is_action_pressed("ui_left"):
+		self.apply_impulse(Vector2.ZERO, Vector2(-impulse_value, 0))
+	if Input.is_action_pressed("ui_right"):
+		self.apply_impulse(Vector2.ZERO, Vector2(impulse_value, 0))
+	
 	# Accelerometer input
 #	var acc = Input.get_accelerometer()
 #	var impulse = Vector2(acc.x * acc_sensilbility, 0)
