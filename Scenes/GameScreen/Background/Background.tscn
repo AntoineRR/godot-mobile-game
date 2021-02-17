@@ -1,15 +1,23 @@
-[gd_scene load_steps=2 format=2]
+[gd_scene load_steps=4 format=2]
 
-[ext_resource path="res://icon.png" type="Texture" id=1]
+[ext_resource path="res://Assets/Placeholders/wp5336681.jpg" type="Texture" id=1]
+[ext_resource path="res://Shaders/PlanetUnder.shader" type="Shader" id=2]
+
+[sub_resource type="ShaderMaterial" id=1]
+shader = ExtResource( 2 )
+shader_param/light_origin = Vector2( 0.5, 0.5 )
+shader_param/size = 50.0
+shader_param/seed = null
 
 [node name="Background" type="Node2D"]
 
 [node name="ParallaxBackground" type="ParallaxBackground" parent="."]
 
 [node name="ParallaxLayer" type="ParallaxLayer" parent="ParallaxBackground"]
-motion_mirroring = Vector2( 0, 1366 )
+motion_mirroring = Vector2( 0, 480 )
 
 [node name="Sprite" type="Sprite" parent="ParallaxBackground/ParallaxLayer"]
-position = Vector2( 384, 683.003 )
-scale = Vector2( 12, 21.3438 )
+material = SubResource( 1 )
+position = Vector2( 135, 240 )
+scale = Vector2( 0.25, 0.25 )
 texture = ExtResource( 1 )

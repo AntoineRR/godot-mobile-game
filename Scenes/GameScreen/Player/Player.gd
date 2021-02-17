@@ -1,6 +1,6 @@
 extends RigidBody2D
 
-var impulse_value = 50
+var impulse_value = 20
 var impulse = Vector2.ZERO
 var is_holding = false
 

@@ -17,6 +17,7 @@ func _ready():
 	for _i in range(n_areas_to_load):
 		loaded_tiles.append([])
 		generate_next_area()
+	print(loaded_tiles)
 
 func _process(_delta):
 	var player_y_pos = get_node("../Player").position.y
@@ -30,8 +31,10 @@ func _process(_delta):
 func generate_next_area():
 	# Set walls to the left and right of the area
 	for j in range(GameManager.area_size.y):
+		add_tile(-1, GameManager.area_size.y * current_area + j, 0)
 		add_tile(0, GameManager.area_size.y * current_area + j, 0)
 		add_tile(GameManager.area_size.x - 1, GameManager.area_size.y * current_area + j, 0)
+		add_tile(GameManager.area_size.x - 2, GameManager.area_size.y * current_area + j, 0)
 	# Spawns 5 random objects in the area
 	for _i in range(1):
 		place_one_tile()
