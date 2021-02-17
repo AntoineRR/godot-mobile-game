@@ -4,6 +4,10 @@ var impulse_value = 20
 var impulse = Vector2.ZERO
 var is_holding = false
 
+var player_health = 5
+
+signal player_died
+
 func _process(_delta):
 	if is_holding:
 		self.apply_impulse(Vector2.ZERO, impulse)
@@ -29,3 +33,8 @@ func _unhandled_input(event):
 				impulse = Vector2(impulse_value,0)
 		else:
 			is_holding = false
+
+func decrease_player_health(value):
+	player_health -= value
+	if player_health <= 0:
+		emit_signal("player_died")

@@ -1,5 +1,9 @@
 extends TileMap
 
+### Exports ###
+
+export(Array, PackedScene) var enemies_scenes
+
 ### Variables ###
 
 var current_area = -1 # Area number
@@ -17,12 +21,12 @@ func _ready():
 	for _i in range(n_areas_to_load):
 		loaded_tiles.append([])
 		generate_next_area()
-	print(loaded_tiles)
 
 func _process(_delta):
 	var player_y_pos = get_node("../Player").position.y
 	if player_y_pos >= area_y_size * (current_area - 1):
 		destroy_previous_area()
+		add_enemies()
 		generate_next_area()
 
 ### Custom methods ###
@@ -69,3 +73,17 @@ func add_tile(x, y, id):
 	set_cell(x, y, id)
 	# Add tiles coordinates to the loaded tiles array
 	loaded_tiles[loaded_tiles.size() - 1].append(Vector2(x,y))
+
+# Add enemies to the area
+func add_enemies():
+	var n = randi() % 3
+	for i in range(n):
+		var x = (randi() % int(GameManager.area_size.x)) * cell_size.x
+		var y = (randi() % int(GameManager.area_size.y) + GameManager.area_size.y * current_area) * cell_size.y
+		while get_used_cells().has(Vector2(x,y)):
+			x = (randi() % int(GameManager.area_size.x)) * cell_size.x
+			y = (randi() % int(GameManager.area_size.y) + GameManager.area_size.y * current_area) * cell_size.y
+		var enemy = enemies_scenes[0].instance()
+		self.get_parent().add_child(enemy)
+		enemy.position.x = x
+		enemy.position.y = y

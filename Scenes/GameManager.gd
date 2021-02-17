@@ -15,6 +15,9 @@ const save_path = "user://user.save"
 # 2 areas loaded at once, the area the player is on and the next one
 const area_size = Vector2(12, 10)
 
+# Player data
+const max_player_health = 5
+
 # === Node methods ===
 
 func _ready():
@@ -81,7 +84,6 @@ func load_game():
 			new_object.set(i, node_data[i])
 
 	save_file.close()
-
 
 
 
