@@ -77,7 +77,7 @@ func add_tile(x, y, id):
 # Add enemies to the area
 func add_enemies():
 	var n = randi() % 3
-	for i in range(n):
+	for _i in range(n):
 		var x = (randi() % int(GameManager.area_size.x)) * cell_size.x
 		var y = (randi() % int(GameManager.area_size.y) + GameManager.area_size.y * current_area) * cell_size.y
 		while get_used_cells().has(Vector2(x,y)):

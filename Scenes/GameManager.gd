@@ -30,7 +30,7 @@ func change_scene(new_scene_path):
 	# Remove previous scene
 	var root = get_tree().get_root()
 	var current_scene = root.get_child(root.get_child_count() - 1)
-	root.remove_child(current_scene)
+	root.call_deferred("remove_child",current_scene)
 	current_scene.call_deferred("free")
 
 	# Add next scene
