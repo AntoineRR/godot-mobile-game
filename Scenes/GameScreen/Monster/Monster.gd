@@ -1,15 +1,23 @@
 extends AnimatedSprite
 
-var current_height = 0
-var offset_step = 0
+### Variables ###
 
-func _ready():
-	current_height = frames.get_frame(animation, frame).get_size().y
-	offset_step = current_height / GameManager.max_player_health
+var current_height = frames.get_frame(animation, frame).get_size().y
+var offset_step = current_height / GameManager.max_player_health
+onready var player = get_node("../Player")
+
+### Node Methods ###
 
 func _process(_delta):
-	var player = get_node("../Player")
+	position = get_new_position()
+
+### Custom Methods ###
+
+func get_new_position() -> Vector2:
+	var pos = position
 	var offset = (GameManager.max_player_health - player.player_health) * offset_step
 	var y = player.position.y - get_viewport_rect().size.y/2 - current_height/2 + offset
-	if y > position.y:
-		position.y = y
+	if y > pos.y:
+		pos.y = y
+	return pos
+

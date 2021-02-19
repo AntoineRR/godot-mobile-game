@@ -1,38 +1,57 @@
-extends RigidBody2D
+extends KinematicBody2D
 
-var impulse_value = 20
-var impulse = Vector2.ZERO
+### Variables ###
+
+# Movement
 var is_holding = false
+var x_direction = 1
+export(int) var x_speed = 100
+export(int) var gravity = 100
+var velocity = Vector2.ZERO
 
+# Stat
 var player_health = 5
+
+### Signals ###
 
 signal player_died
 
-func _process(_delta):
-	if is_holding:
-		self.apply_impulse(Vector2.ZERO, impulse)
-	
-	# Keyboard input for debug
-	if Input.is_action_pressed("ui_left"):
-		self.apply_impulse(Vector2.ZERO, Vector2(-impulse_value, 0))
-	if Input.is_action_pressed("ui_right"):
-		self.apply_impulse(Vector2.ZERO, Vector2(impulse_value, 0))
-	
-	# Accelerometer input
-#	var acc = Input.get_accelerometer()
-#	var impulse = Vector2(acc.x * acc_sensilbility, 0)
-#	self.apply_impulse(Vector2.ZERO, impulse)
+### Node Methods ###
+
+func _process(delta):
+	update_velocity(delta)
+
+func _physics_process(_delta):
+	velocity = move_and_slide(velocity, Vector2(0,-1))
 
 func _unhandled_input(event):
 	if event is InputEventScreenTouch:
 		if event.pressed:
 			is_holding = true
 			if event.position.x < get_viewport_rect().size.x / 2:
-				impulse = Vector2(-impulse_value,0)
+				x_direction = -1
 			else:
-				impulse = Vector2(impulse_value,0)
+				x_direction = 1
 		else:
 			is_holding = false
+
+### Custom Methods ###
+
+func update_velocity(delta):
+	velocity.x = 0
+	if is_holding:
+		velocity.x += x_direction * x_speed
+	
+	# Keyboard input for debug
+	if Input.is_action_pressed("ui_left"):
+		velocity.x += -x_speed
+	if Input.is_action_pressed("ui_right"):
+		velocity.x += x_speed
+	
+	# Increase velocity when player starts falling
+	if velocity.y - 0.1 < 0:
+		delta += 0.02
+	velocity.y += gravity * delta
 
 func decrease_player_health(value):
 	player_health -= value
