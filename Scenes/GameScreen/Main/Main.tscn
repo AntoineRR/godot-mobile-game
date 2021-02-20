@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://Scenes/GameScreen/Player/Player.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Scenes/GameScreen/Background/Background.tscn" type="PackedScene" id=2]
@@ -6,6 +6,7 @@
 [ext_resource path="res://Assets/Placeholders/asset_test.png" type="Texture" id=4]
 [ext_resource path="res://Scenes/GameScreen/Main/Main.gd" type="Script" id=5]
 [ext_resource path="res://Scenes/GameScreen/Monster/Monster.tscn" type="PackedScene" id=6]
+[ext_resource path="res://Scenes/GameScreen/Bonus/Money/Money.tscn" type="PackedScene" id=7]
 
 [node name="Main" type="Node"]
 pause_mode = 2
@@ -21,6 +22,7 @@ position = Vector2( -1, 0 )
 
 [node name="TileMap" parent="." instance=ExtResource( 3 )]
 pause_mode = 1
+money = [ ExtResource( 7 ) ]
 
 [node name="Sprite" type="Sprite" parent="."]
 pause_mode = 1

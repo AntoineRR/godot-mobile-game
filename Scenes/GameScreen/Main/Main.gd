@@ -1,6 +1,7 @@
 extends Node
 
 func end_game():
+	GameManager.save_game()
 	GameManager.change_scene(GameManager.home_scene_path)
 
 func _on_Pause_pressed():

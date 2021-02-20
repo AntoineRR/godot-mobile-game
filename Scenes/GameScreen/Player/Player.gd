@@ -21,6 +21,7 @@ signal player_died
 
 func _process(delta):
 	update_velocity(delta)
+	get_node("Label").text = str(UserData.money)
 
 func _physics_process(_delta):
 	velocity = move_and_slide(velocity, Vector2(0,-1))

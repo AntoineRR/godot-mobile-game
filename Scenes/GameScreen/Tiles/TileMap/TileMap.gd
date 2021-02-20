@@ -3,6 +3,7 @@ extends TileMap
 ### Exports ###
 
 export(Array, PackedScene) var enemies_scenes
+export(Array, PackedScene) var money
 
 ### Variables ###
 
@@ -10,6 +11,7 @@ var current_area = -1 # Area number
 var tiles = [] # Tiles to choose from to build an area
 var loaded_tiles = [] # Tiles that are instanced
 var loaded_enemies = [] # Enemies that are instanced
+var loaded_money = [] # Coins that are instanced
 var n_areas_to_load = 0
 var area_y_size = cell_size.y * GameManager.area_size.y
 
@@ -22,6 +24,7 @@ func _ready():
 	for _i in range(n_areas_to_load):
 		loaded_tiles.append([])
 		loaded_enemies.append([])
+		loaded_money.append([])
 		generate_next_area()
 
 func _process(_delta):
@@ -29,6 +32,7 @@ func _process(_delta):
 	if player_y_pos >= area_y_size * (current_area - 1):
 		destroy_previous_area()
 		add_enemies()
+		add_coins()
 		generate_next_area()
 
 ### Custom methods ###
@@ -102,3 +106,18 @@ func add_enemies():
 		enemy.position.x = x
 		enemy.position.y = y
 		loaded_enemies[loaded_enemies.size() - 1].append(enemy)
+		
+# Add enemies to the area
+func add_coins():
+	var n = randi() % 3
+	for _i in range(n):
+		var x = (randi() % int(GameManager.area_size.x)) * cell_size.x
+		var y = (randi() % int(GameManager.area_size.y) + GameManager.area_size.y * current_area) * cell_size.y
+		while get_used_cells().has(Vector2(x,y)):
+			x = (randi() % int(GameManager.area_size.x)) * cell_size.x
+			y = (randi() % int(GameManager.area_size.y) + GameManager.area_size.y * current_area) * cell_size.y
+		var coin = money[0].instance()
+		self.get_parent().add_child(coin)
+		coin.position.x = x
+		coin.position.y = y
+		loaded_money[loaded_money.size() - 1].append(coin)

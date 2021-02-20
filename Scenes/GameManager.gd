@@ -72,16 +72,9 @@ func load_game():
 		# Get the saved dictionary from the next line in the save file
 		var node_data = parse_json(save_file.get_line())
 
-		# Firstly, we need to create the object and add it to the tree and set its position.
-		var new_object = load(node_data["filename"]).instance()
-		get_node(node_data["parent"]).add_child(new_object)
-		new_object.position = Vector2(node_data["pos_x"], node_data["pos_y"])
-
 		# Now we set the remaining variables.
 		for i in node_data.keys():
-			if i == "filename" or i == "parent" or i == "pos_x" or i == "pos_y":
-				continue
-			new_object.set(i, node_data[i])
+			UserData.set(i, node_data[i])
 
 	save_file.close()
 
