@@ -9,6 +9,7 @@ export(Array, PackedScene) var enemies_scenes
 var current_area = -1 # Area number
 var tiles = [] # Tiles to choose from to build an area
 var loaded_tiles = [] # Tiles that are instanced
+var loaded_enemies = [] # Enemies that are instanced
 var n_areas_to_load = 0
 var area_y_size = cell_size.y * GameManager.area_size.y
 
@@ -20,6 +21,7 @@ func _ready():
 	current_area = -int(n_areas_to_load/2) - 1
 	for _i in range(n_areas_to_load):
 		loaded_tiles.append([])
+		loaded_enemies.append([])
 		generate_next_area()
 
 func _process(_delta):
@@ -46,13 +48,25 @@ func generate_next_area():
 
 # Destroys the tiles in the top area
 func destroy_previous_area():
+	# Remove tiles in the top area
 	for coords in loaded_tiles[0]:
 		set_cell(coords.x, coords.y, -1)
+	# Remove enemies in the top area
+	for elt in loaded_enemies[0]:
+		# If the object wasn't already destroyed
+		if weakref(elt).get_ref():
+			get_parent().call_deferred("remove_child",elt)
+			elt.call_deferred("queue_free")
+	# Shift loaded_tiles and loaded_enemies array
 	for i in range(1, n_areas_to_load):
 		loaded_tiles[i-1].clear()
 		for elt in loaded_tiles[i]:
 			loaded_tiles[i-1].append(elt)
+		loaded_enemies[i-1].clear()
+		for elt in loaded_enemies[i]:
+			loaded_enemies[i-1].append(elt)
 	loaded_tiles[n_areas_to_load - 1].clear()
+	loaded_enemies[n_areas_to_load - 1].clear()
 
 # Place a random tile at a random location inside the area
 func place_one_tile():
@@ -87,3 +101,4 @@ func add_enemies():
 		self.get_parent().add_child(enemy)
 		enemy.position.x = x
 		enemy.position.y = y
+		loaded_enemies[loaded_enemies.size() - 1].append(enemy)

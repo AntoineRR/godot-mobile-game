@@ -56,13 +56,14 @@ func update_velocity(delta):
 		velocity.y += gravity * delta
 
 func take_damage(duration):
-	velocity = Vector2(0,10)
-	stop = true
-	var timer = get_node("../InvicibilityFrames")
-	timer.wait_time = duration
-	timer.start()
-	yield(timer, "timeout")
-	stop = false
+	if not stop:
+		velocity = Vector2(0,10)
+		stop = true
+		var timer = get_node("../InvicibilityFrames")
+		timer.wait_time = duration
+		timer.start()
+		yield(timer, "timeout")
+		stop = false
 
 func _on_Monster_caught_player():
 	emit_signal("player_died")
