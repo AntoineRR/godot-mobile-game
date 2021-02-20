@@ -84,7 +84,12 @@ margin_top = -41.0
 margin_right = 26.0
 margin_bottom = -21.0
 text = "Home"
+
+[node name="InvicibilityFrames" type="Timer" parent="."]
+wait_time = 0.5
+one_shot = true
 [connection signal="player_died" from="Player" to="." method="end_game"]
+[connection signal="caught_player" from="Monster" to="Player" method="_on_Monster_caught_player"]
 [connection signal="pressed" from="GUI/Pause" to="." method="_on_Pause_pressed"]
 [connection signal="pressed" from="GUI/Popup/ColorRect/Resume" to="." method="_on_Resume_pressed"]
 [connection signal="pressed" from="GUI/Popup/ColorRect/Home" to="." method="_on_Home_pressed"]

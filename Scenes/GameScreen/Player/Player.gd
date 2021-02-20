@@ -8,6 +8,7 @@ var x_direction = 1
 export(int) var x_speed = 100
 export(int) var gravity = 100
 var velocity = Vector2.ZERO
+var stop = false
 
 # Stat
 var player_health = 5
@@ -38,22 +39,30 @@ func _unhandled_input(event):
 ### Custom Methods ###
 
 func update_velocity(delta):
-	velocity.x = 0
-	if is_holding:
-		velocity.x += x_direction * x_speed
-	
-	# Keyboard input for debug
-	if Input.is_action_pressed("ui_left"):
-		velocity.x += -x_speed
-	if Input.is_action_pressed("ui_right"):
-		velocity.x += x_speed
-	
-	# Increase velocity when player starts falling
-	if velocity.y - 0.1 < 0:
-		delta += 0.02
-	velocity.y += gravity * delta
+	if not stop:
+		velocity.x = 0
+		if is_holding:
+			velocity.x += x_direction * x_speed
+		
+		# Keyboard input for debug
+		if Input.is_action_pressed("ui_left"):
+			velocity.x += -x_speed
+		if Input.is_action_pressed("ui_right"):
+			velocity.x += x_speed
+		
+		# Increase velocity when player starts falling
+		if velocity.y - 0.1 < 0:
+			delta += 0.02
+		velocity.y += gravity * delta
 
-func decrease_player_health(value):
-	player_health -= value
-	if player_health <= 0:
-		emit_signal("player_died")
+func take_damage(duration):
+	velocity = Vector2(0,10)
+	stop = true
+	var timer = get_node("../InvicibilityFrames")
+	timer.wait_time = duration
+	timer.start()
+	yield(timer, "timeout")
+	stop = false
+
+func _on_Monster_caught_player():
+	emit_signal("player_died")
