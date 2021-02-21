@@ -1,14 +1,15 @@
 [gd_scene load_steps=4 format=2]
 
 [ext_resource path="res://Assets/Placeholders/wp5336681.jpg" type="Texture" id=1]
-[ext_resource path="res://Shaders/Pixel_noise.shader" type="Shader" id=2]
+[ext_resource path="res://Shaders/Fog.shader" type="Shader" id=2]
 
 [sub_resource type="ShaderMaterial" id=1]
 shader = ExtResource( 2 )
 shader_param/color = Vector3( 0.15432, 0.4253, 0.93542 )
-shader_param/seed = 789.165
+shader_param/OCTAVES = 4
+shader_param/seed = 565.232
 
-[node name="Background" type="Node2D"]
+[node name="Foreground" type="Node2D"]
 
 [node name="ParallaxBackground" type="ParallaxBackground" parent="."]
 
