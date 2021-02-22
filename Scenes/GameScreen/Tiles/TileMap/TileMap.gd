@@ -19,7 +19,7 @@ var area_y_size = cell_size.y * GameManager.area_size.y
 
 func _ready():
 	tiles = tile_set.get_tiles_ids()
-	n_areas_to_load = get_viewport_rect().size.y / area_y_size + 2
+	n_areas_to_load = OS.get_screen_size().y / area_y_size + 2
 	current_area = -int(n_areas_to_load/2) - 1
 	for _i in range(n_areas_to_load):
 		loaded_tiles.append([])

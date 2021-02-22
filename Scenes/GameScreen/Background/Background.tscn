@@ -11,12 +11,15 @@ shader_param/seed = 789.165
 [node name="Background" type="Node2D"]
 
 [node name="ParallaxBackground" type="ParallaxBackground" parent="."]
+scroll_ignore_camera_zoom = true
 
 [node name="ParallaxLayer" type="ParallaxLayer" parent="ParallaxBackground"]
-motion_mirroring = Vector2( 0, 480 )
+motion_mirroring = Vector2( 0, 600 )
 
 [node name="Sprite" type="Sprite" parent="ParallaxBackground/ParallaxLayer"]
 material = SubResource( 1 )
-position = Vector2( 135, 240 )
+position = Vector2( 135, 300 )
 scale = Vector2( 0.25, 0.25 )
 texture = ExtResource( 1 )
+region_enabled = true
+region_rect = Rect2( 0, 0, 1080, 2400 )

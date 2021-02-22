@@ -13,7 +13,7 @@ const save_path = "user://user.save"
 
 # Area size in tiles
 # 2 areas loaded at once, the area the player is on and the next one
-const area_size = Vector2(12, 10)
+const area_size = Vector2(12, 15)
 
 # Player data
 const max_player_health = 5
