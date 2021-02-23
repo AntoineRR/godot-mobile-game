@@ -5,13 +5,13 @@ extends KinematicBody2D
 # Movement
 var is_holding = false
 var x_direction = 1
-export(int) var x_speed = 100
-export(int) var gravity = 100
+var max_x_speed = 100
+var max_y_speed = 400
+var x_acceleration = 0.05
+var y_acceleration = 0.005
+var friction = 0.02
 var velocity = Vector2.ZERO
 var stop = false
-
-# Stat
-var player_health = 5
 
 ### Signals ###
 
@@ -27,34 +27,35 @@ func _physics_process(_delta):
 	velocity = move_and_slide(velocity, Vector2(0,-1))
 
 func _unhandled_input(event):
-	if event is InputEventScreenTouch:
-		if event.pressed:
-			is_holding = true
-			if event.position.x < get_viewport_rect().size.x / 2:
-				x_direction = -1
+	if GameManager.os_name == "Android":
+		if event is InputEventScreenTouch:
+			if event.pressed:
+				is_holding = true
+				if event.position.x < get_viewport_rect().size.x / 2:
+					x_direction = -1
+				else:
+					x_direction = 1
 			else:
-				x_direction = 1
-		else:
-			is_holding = false
+				is_holding = false
 
 ### Custom Methods ###
 
 func update_velocity(delta):
 	if not stop:
-		velocity.x = 0
-		if is_holding:
-			velocity.x += x_direction * x_speed
+		if GameManager.os_name == "Android":
+			if is_holding:
+				velocity.x = lerp(velocity.x, x_direction * max_x_speed, x_acceleration)
+			else:
+				velocity.x = lerp(velocity.x, 0, friction)
+		else:
+			if Input.is_action_pressed("ui_left"):
+				velocity.x = lerp(velocity.x, -max_x_speed, x_acceleration)
+			elif Input.is_action_pressed("ui_right"):
+				velocity.x = lerp(velocity.x, max_x_speed, x_acceleration)
+			else:
+				velocity.x = lerp(velocity.x, 0, friction)
 		
-		# Keyboard input for debug
-		if Input.is_action_pressed("ui_left"):
-			velocity.x += -x_speed
-		if Input.is_action_pressed("ui_right"):
-			velocity.x += x_speed
-		
-		# Increase velocity when player starts falling
-		if velocity.y - 0.1 < 0:
-			delta += 0.02
-		velocity.y += gravity * delta
+		velocity.y = lerp(velocity.y, max_y_speed, y_acceleration)
 
 func take_damage(duration):
 	if not stop:
