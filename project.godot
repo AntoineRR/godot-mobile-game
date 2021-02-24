@@ -29,6 +29,10 @@ config/icon="res://icon.png"
 GameManager="*res://Scenes/GameManager.tscn"
 UserData="*res://Scenes/UserData.tscn"
 
+[debug]
+
+settings/fps/force_fps=60
+
 [display]
 
 window/size/width=270

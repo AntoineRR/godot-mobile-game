@@ -1,7 +1,8 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://Assets/Placeholders/monster.png" type="Texture" id=1]
 [ext_resource path="res://Scenes/GameScreen/Monster/Monster.gd" type="Script" id=2]
+[ext_resource path="res://Scenes/GameScreen/Monster/MonsterProjectile.tscn" type="PackedScene" id=3]
 
 [sub_resource type="SpriteFrames" id=1]
 animations = [ {
@@ -14,3 +15,9 @@ animations = [ {
 [node name="Monster" type="AnimatedSprite"]
 frames = SubResource( 1 )
 script = ExtResource( 2 )
+projectiles = [ ExtResource( 3 ) ]
+
+[node name="ProjectileReload" type="Timer" parent="."]
+wait_time = 3.0
+autostart = true
+[connection signal="timeout" from="ProjectileReload" to="." method="_on_ProjectileReload_timeout"]

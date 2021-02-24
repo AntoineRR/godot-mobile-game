@@ -3,11 +3,9 @@ extends KinematicBody2D
 ### Variables ###
 
 # Movement
-var is_holding = false
-var x_direction = 1
-var max_x_speed = 100
+var max_x_speed = 200
 var max_y_speed = 400
-var x_acceleration = 0.05
+var x_acceleration = 0.1
 var y_acceleration = 0.005
 var friction = 0.02
 var velocity = Vector2.ZERO
@@ -30,28 +28,22 @@ func _unhandled_input(event):
 	if GameManager.os_name == "Android":
 		if event is InputEventScreenTouch:
 			if event.pressed:
-				is_holding = true
 				if event.position.x < get_viewport_rect().size.x / 2:
-					x_direction = -1
+					velocity.x = -max_x_speed
 				else:
-					x_direction = 1
-			else:
-				is_holding = false
+					velocity.x = max_x_speed
 
 ### Custom Methods ###
 
-func update_velocity(delta):
+func update_velocity(_delta):
 	if not stop:
 		if GameManager.os_name == "Android":
-			if is_holding:
-				velocity.x = lerp(velocity.x, x_direction * max_x_speed, x_acceleration)
-			else:
-				velocity.x = lerp(velocity.x, 0, friction)
+			velocity.x = lerp(velocity.x, 0, friction)
 		else:
-			if Input.is_action_pressed("ui_left"):
-				velocity.x = lerp(velocity.x, -max_x_speed, x_acceleration)
-			elif Input.is_action_pressed("ui_right"):
-				velocity.x = lerp(velocity.x, max_x_speed, x_acceleration)
+			if Input.is_action_just_pressed("ui_left"):
+				velocity.x = -max_x_speed
+			elif Input.is_action_just_pressed("ui_right"):
+				velocity.x = max_x_speed
 			else:
 				velocity.x = lerp(velocity.x, 0, friction)
 		

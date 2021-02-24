@@ -1,5 +1,9 @@
 extends AnimatedSprite
 
+### Exports ###
+
+export (Array, PackedScene) var projectiles
+
 ### Variables ###
 
 var current_height = frames.get_frame(animation, frame).get_size().y
@@ -37,3 +41,10 @@ func get_new_position(delta) -> Vector2:
 func check_if_player_caught():
 	if position.y + current_height/2 >= player.position.y:
 		emit_signal("caught_player")
+
+
+func _on_ProjectileReload_timeout():
+	var projectile = projectiles[0].instance()
+	projectile.position.x = randi() % int(get_viewport().size.x)
+	projectile.position.y = position.y
+	get_node("../").add_child(projectile)
