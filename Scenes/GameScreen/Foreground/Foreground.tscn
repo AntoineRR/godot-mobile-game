@@ -10,6 +10,8 @@ shader_param/OCTAVES = 4
 shader_param/seed = 565.232
 
 [node name="Foreground" type="Node2D"]
+pause_mode = 1
+z_index = 4
 
 [node name="ParallaxBackground" type="ParallaxBackground" parent="."]
 

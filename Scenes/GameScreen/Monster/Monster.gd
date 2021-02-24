@@ -47,4 +47,5 @@ func _on_ProjectileReload_timeout():
 	var projectile = projectiles[0].instance()
 	projectile.position.x = randi() % int(get_viewport().size.x)
 	projectile.position.y = position.y
+	projectile.z_index = 2
 	get_node("../").add_child(projectile)

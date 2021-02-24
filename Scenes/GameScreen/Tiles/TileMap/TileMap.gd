@@ -105,6 +105,7 @@ func add_enemies():
 		self.get_parent().add_child(enemy)
 		enemy.position.x = x
 		enemy.position.y = y
+		enemy.z_index = 2
 		loaded_enemies[loaded_enemies.size() - 1].append(enemy)
 		
 # Add enemies to the area
@@ -120,4 +121,5 @@ func add_coins():
 		self.get_parent().add_child(coin)
 		coin.position.x = x
 		coin.position.y = y
+		coin.z_index = 2
 		loaded_money[loaded_money.size() - 1].append(coin)

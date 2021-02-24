@@ -55,9 +55,13 @@ points = PoolVector2Array( 24, 24, 0, 24, 12.0291, 11.9648, 24, 0 )
 1/z_index = 0
 
 [node name="TileMap" type="TileMap"]
+pause_mode = 1
 position = Vector2( 3, 0 )
+z_index = 1
 tile_set = SubResource( 3 )
 cell_size = Vector2( 24, 24 )
+collision_layer = 8
+collision_mask = 3
 format = 1
 script = ExtResource( 2 )
 enemies_scenes = [ ExtResource( 3 ) ]

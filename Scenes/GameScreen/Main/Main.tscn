@@ -14,20 +14,18 @@ pause_mode = 2
 script = ExtResource( 5 )
 
 [node name="Player" parent="." instance=ExtResource( 1 )]
-pause_mode = 1
 position = Vector2( 135, 0 )
 
 [node name="Background" parent="." instance=ExtResource( 2 )]
-pause_mode = 1
 position = Vector2( -1, 0 )
 
 [node name="TileMap" parent="." instance=ExtResource( 3 )]
-pause_mode = 1
 money = [ ExtResource( 7 ) ]
 
 [node name="Sprite" type="Sprite" parent="."]
 pause_mode = 1
 position = Vector2( 238, 103 )
+z_index = 1
 texture = ExtResource( 4 )
 
 [node name="Monster" parent="." instance=ExtResource( 6 )]

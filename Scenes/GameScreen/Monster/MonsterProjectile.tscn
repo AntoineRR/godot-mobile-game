@@ -14,6 +14,8 @@ animations = [ {
 } ]
 
 [node name="MonsterProjectile" type="Area2D"]
+pause_mode = 1
+collision_layer = 4
 script = ExtResource( 2 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]

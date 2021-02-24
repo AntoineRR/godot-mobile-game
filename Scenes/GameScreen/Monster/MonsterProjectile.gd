@@ -9,7 +9,6 @@ func _process(delta):
 	if position.y > player.position.y + get_viewport().size.y:
 		queue_free()
 
-func _on_MonsterProjectile_body_entered(body):
-	if body == player:
-		player.take_damage(0.5)
-		queue_free()
+func _on_MonsterProjectile_body_entered(_body):
+	player.take_damage(0.5)
+	queue_free()

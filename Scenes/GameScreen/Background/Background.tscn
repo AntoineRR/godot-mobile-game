@@ -9,6 +9,7 @@ shader_param/color = Vector3( 0.15432, 0.4253, 0.93542 )
 shader_param/seed = 789.165
 
 [node name="Background" type="Node2D"]
+pause_mode = 1
 
 [node name="ParallaxBackground" type="ParallaxBackground" parent="."]
 scroll_ignore_camera_zoom = true
