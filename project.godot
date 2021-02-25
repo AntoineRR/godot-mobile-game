@@ -9,6 +9,11 @@
 config_version=4
 
 _global_script_classes=[ {
+"base": "Reference",
+"class": "DefaultBiome",
+"language": "GDScript",
+"path": "res://Scenes/GameScreen/Biomes/DefaultBiome.gd"
+}, {
 "base": "",
 "class": "GitAPI",
 "language": "NativeScript",
@@ -20,6 +25,7 @@ _global_script_classes=[ {
 "path": "res://Scenes/GameScreen/Terrain/TerrainArea.gd"
 } ]
 _global_script_class_icons={
+"DefaultBiome": "",
 "GitAPI": "",
 "TerrainArea": ""
 }

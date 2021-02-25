@@ -1,11 +1,8 @@
 extends TileMap
 
-### Exports ###
-
-export(Array, PackedScene) var enemies_scenes
-export(Array, PackedScene) var money
-
 ### Variables ###
+
+var biome = 0
 
 var current_area = -1 # Area number
 var tiles = [] # Tiles to choose from to build an area
@@ -17,6 +14,7 @@ var terrainAreas = []
 ### Overriden methods ###
 
 func _ready():
+	biome = randi() % GameManager.biomes.size() # Choose biome randomly
 	tiles = tile_set.get_tiles_ids()
 	n_areas_to_load = get_viewport().size.y / area_y_size + 2
 	current_area = -int(n_areas_to_load/2) - 1
@@ -24,8 +22,7 @@ func _ready():
 		generate_next_area()
 
 func generate_next_area():
-	var area = TerrainArea.new()
-	area.set_variables(self, current_area)
+	var area = TerrainArea.new(self, current_area, biome)
 	area.spawn()
 	terrainAreas.append(area)
 	current_area += 1
