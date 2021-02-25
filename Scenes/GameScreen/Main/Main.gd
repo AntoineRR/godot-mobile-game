@@ -6,7 +6,7 @@ func end_game():
 
 func _on_Pause_pressed():
 	get_tree().paused = true
-	get_node("GUI/Popup").popup()
+	get_node("GUI/Popup").show()
 
 
 func _on_Resume_pressed():

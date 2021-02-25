@@ -15,6 +15,11 @@ const save_path = "user://user.save"
 # 2 areas loaded at once, the area the player is on and the next one
 const area_size = Vector2(12, 15)
 
+# Gameplay variables
+var max_obstacles_in_area = 3
+var max_enemies_in_area = 2
+var max_coins_in_area = 3
+
 # Utilities
 var os_name = OS.get_name()
 
