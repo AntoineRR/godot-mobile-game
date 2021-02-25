@@ -3,13 +3,14 @@ extends KinematicBody2D
 ### Variables ###
 
 # Movement
-var max_x_speed = 200
-var max_y_speed = 400
-var x_acceleration = 0.1
-var y_acceleration = 0.005
-var friction = 0.02
+export var max_x_speed = 200
+export var max_y_speed = 400
+export var y_acceleration = 0.005
+export var friction = 0.05
+
 var velocity = Vector2.ZERO
 var stop = false
+var max_speed = false
 
 ### Signals ###
 
@@ -32,19 +33,26 @@ func _unhandled_input(event):
 					velocity.x = -max_x_speed
 				else:
 					velocity.x = max_x_speed
+				max_speed = true
+				get_node("TimeAtMaxSpeed").start()
 
 ### Custom Methods ###
 
 func update_velocity(_delta):
 	if not stop:
 		if GameManager.os_name == "Android":
-			velocity.x = lerp(velocity.x, 0, friction)
+			if not max_speed:
+				velocity.x = lerp(velocity.x, 0, friction)
 		else:
 			if Input.is_action_just_pressed("ui_left"):
 				velocity.x = -max_x_speed
+				max_speed = true
+				get_node("TimeAtMaxSpeed").start()
 			elif Input.is_action_just_pressed("ui_right"):
 				velocity.x = max_x_speed
-			else:
+				max_speed = true
+				get_node("TimeAtMaxSpeed").start()
+			elif not max_speed:
 				velocity.x = lerp(velocity.x, 0, friction)
 		
 		velocity.y = lerp(velocity.y, max_y_speed, y_acceleration)
@@ -61,3 +69,6 @@ func take_damage(duration):
 
 func _on_Monster_caught_player():
 	emit_signal("player_died")
+
+func _on_TimeAtMaxSpeed_timeout():
+	max_speed = false
