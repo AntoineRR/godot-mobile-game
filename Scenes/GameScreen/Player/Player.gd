@@ -8,6 +8,10 @@ export var max_y_speed = 400
 export var y_acceleration = 0.005
 export var friction = 0.05
 
+# Feedback
+export var speed_shake_amplitude_factor = 2
+export var speed_shake_frequency = 15
+
 var velocity = Vector2.ZERO
 var stop = false
 var max_speed = false
@@ -20,6 +24,11 @@ signal player_died
 
 func _process(delta):
 	update_velocity(delta)
+	# The shake camera effect needs to be handled by the enemy/projectile when we hit it
+	# That is why we check for velocity first, a velocity close to zero means we hit an enemy/projectile
+	if velocity.y - 20 > 0:
+		# Shake camera when speed increases
+		get_node("Camera2D").shake(0.1, speed_shake_frequency, speed_shake_amplitude_factor * velocity.y / max_y_speed)
 	get_node("Label").text = str(UserData.money)
 
 func _physics_process(_delta):
