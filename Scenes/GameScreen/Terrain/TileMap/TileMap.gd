@@ -5,9 +5,8 @@ extends TileMap
 var biome = 0
 
 var current_area = -1 # Area number
-var tiles = [] # Tiles to choose from to build an area
 var n_areas_to_load = 0
-var area_y_size = cell_size.y * GameManager.area_size.y
+var area_y_size = 0
 
 var terrainAreas = []
 
@@ -15,7 +14,7 @@ var terrainAreas = []
 
 func _ready():
 	biome = randi() % GameManager.biomes.size() # Choose biome randomly
-	tiles = tile_set.get_tiles_ids()
+	area_y_size = cell_size.y * GameManager.biomes[biome].area_size.y
 	n_areas_to_load = get_viewport().size.y / area_y_size + 2
 	current_area = -int(n_areas_to_load/2) - 1
 	for _i in range(n_areas_to_load):

@@ -12,10 +12,6 @@ const credits_scene_path = "res://Scenes/CreditsScreen/Main/Main.tscn"
 # Save path
 const save_path = "user://user.save"
 
-# Area size in tiles
-# 2 areas loaded at once, the area the player is on and the next one
-const area_size = Vector2(12, 15)
-
 ### Variables ###
 
 # Used for the back button
