@@ -15,17 +15,118 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Button" type="Button" parent="CanvasLayer"]
-anchor_left = 0.5
-anchor_top = 1.0
-anchor_right = 0.5
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer"]
+anchor_right = 1.0
 anchor_bottom = 1.0
-margin_left = -80.0
-margin_top = -100.0
-margin_right = 80.0
-margin_bottom = -50.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Top" type="MarginContainer" parent="CanvasLayer/VBoxContainer"]
+margin_right = 270.0
+margin_bottom = 34.0
+custom_constants/margin_top = 10
+custom_constants/margin_bottom = 10
+
+[node name="Label" type="Label" parent="CanvasLayer/VBoxContainer/Top"]
+margin_top = 10.0
+margin_right = 270.0
+margin_bottom = 24.0
+text = "HOME"
+align = 1
+
+[node name="Middle" type="MarginContainer" parent="CanvasLayer/VBoxContainer"]
+margin_top = 38.0
+margin_right = 270.0
+margin_bottom = 325.0
+size_flags_vertical = 3
+
+[node name="Bottom" type="VBoxContainer" parent="CanvasLayer/VBoxContainer"]
+margin_top = 329.0
+margin_right = 270.0
+margin_bottom = 480.0
+
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/VBoxContainer/Bottom"]
+margin_right = 270.0
+margin_bottom = 30.0
+custom_constants/margin_right = 30
+custom_constants/margin_top = 5
+custom_constants/margin_left = 30
+custom_constants/margin_bottom = 5
+
+[node name="Start" type="Button" parent="CanvasLayer/VBoxContainer/Bottom/MarginContainer"]
+margin_left = 30.0
+margin_top = 5.0
+margin_right = 240.0
+margin_bottom = 25.0
 text = "Start"
 __meta__ = {
 "_edit_use_anchors_": false
 }
-[connection signal="pressed" from="CanvasLayer/Button" to="." method="_on_Button_pressed"]
+
+[node name="MarginContainer2" type="MarginContainer" parent="CanvasLayer/VBoxContainer/Bottom"]
+margin_top = 34.0
+margin_right = 270.0
+margin_bottom = 64.0
+custom_constants/margin_right = 30
+custom_constants/margin_top = 5
+custom_constants/margin_left = 30
+custom_constants/margin_bottom = 5
+
+[node name="Shop" type="Button" parent="CanvasLayer/VBoxContainer/Bottom/MarginContainer2"]
+margin_left = 30.0
+margin_top = 5.0
+margin_right = 240.0
+margin_bottom = 25.0
+text = "Shop"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="MarginContainer3" type="MarginContainer" parent="CanvasLayer/VBoxContainer/Bottom"]
+margin_top = 68.0
+margin_right = 270.0
+margin_bottom = 98.0
+custom_constants/margin_right = 30
+custom_constants/margin_top = 5
+custom_constants/margin_left = 30
+custom_constants/margin_bottom = 5
+
+[node name="Options" type="Button" parent="CanvasLayer/VBoxContainer/Bottom/MarginContainer3"]
+margin_left = 30.0
+margin_top = 5.0
+margin_right = 240.0
+margin_bottom = 25.0
+text = "Options"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="MarginContainer4" type="MarginContainer" parent="CanvasLayer/VBoxContainer/Bottom"]
+margin_top = 102.0
+margin_right = 270.0
+margin_bottom = 132.0
+custom_constants/margin_right = 30
+custom_constants/margin_top = 5
+custom_constants/margin_left = 30
+custom_constants/margin_bottom = 5
+
+[node name="Credits" type="Button" parent="CanvasLayer/VBoxContainer/Bottom/MarginContainer4"]
+margin_left = 30.0
+margin_top = 5.0
+margin_right = 240.0
+margin_bottom = 25.0
+text = "Credits"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="MarginContainer5" type="MarginContainer" parent="CanvasLayer/VBoxContainer/Bottom"]
+margin_top = 136.0
+margin_right = 270.0
+margin_bottom = 151.0
+custom_constants/margin_top = 15
+[connection signal="pressed" from="CanvasLayer/VBoxContainer/Bottom/MarginContainer/Start" to="." method="_on_Start_pressed"]
+[connection signal="pressed" from="CanvasLayer/VBoxContainer/Bottom/MarginContainer2/Shop" to="." method="_on_Shop_pressed"]
+[connection signal="pressed" from="CanvasLayer/VBoxContainer/Bottom/MarginContainer3/Options" to="." method="_on_Options_pressed"]
+[connection signal="pressed" from="CanvasLayer/VBoxContainer/Bottom/MarginContainer4/Credits" to="." method="_on_Credits_pressed"]

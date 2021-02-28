@@ -11,7 +11,6 @@ Prototyping - Adjusting gameplay
 - Follow [those steps](https://docs.godotengine.org/en/stable/getting_started/workflow/export/exporting_for_android.html) to get it running on your Android device.
 
 ## Next steps
-* Add placeholders for every screens that will be available in the game
 * Build the shopping system
 * Add the ability to destroy objects below the player (weapon)
 * Add gamemodes

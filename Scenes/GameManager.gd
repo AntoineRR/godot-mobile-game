@@ -1,10 +1,11 @@
 extends Node
 
-# === Constants ===
+### Constants ###
 
 # Scene paths
 const home_scene_path = "res://Scenes/HomeScreen/Main/Main.tscn"
 const game_scene_path = "res://Scenes/GameScreen/Main/Main.tscn"
+const shop_scene_path = "res://Scenes/ShopScreen/Main/Main.tscn"
 const options_scene_path = "res://Scenes/OptionsScreen/Main/Main.tscn"
 const credits_scene_path = "res://Scenes/CreditsScreen/Main/Main.tscn"
 
@@ -15,6 +16,13 @@ const save_path = "user://user.save"
 # 2 areas loaded at once, the area the player is on and the next one
 const area_size = Vector2(12, 15)
 
+### Variables ###
+
+# Used for the back button
+var current_screen = ""
+var previous_screen = ""
+
+# Biomes
 var biomes = {
 	0: DefaultBiome.new()
 }
@@ -25,12 +33,17 @@ var os_name = OS.get_name()
 # === Node methods ===
 
 func _ready():
+	current_screen = home_scene_path
 	load_game()
 	randomize()
 
 # === Custom methods ===
 
 func change_scene(new_scene_path):
+	# Change variables
+	previous_screen = current_screen
+	current_screen = new_scene_path
+	
 	# Remove previous scene
 	var root = get_tree().get_root()
 	var current_scene = root.get_child(root.get_child_count() - 1)
