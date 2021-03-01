@@ -35,7 +35,7 @@ func spawn_enemies(n):
 			y = (randi() % int(area_size.y) + area_size.y * area_number) * tilemap.cell_size.y
 		
 		var enemy_index = randi() % biome.enemy_scenes.size()
-		var enemy = biome.enemy_scenes[enemy_index].instance()
+		var enemy = biome.enemy_scenes[enemy_index].resource.instance()
 		tilemap.get_parent().call_deferred("add_child",enemy)
 		
 		enemy.position.x = x
