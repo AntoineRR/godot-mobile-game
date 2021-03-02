@@ -1,10 +1,15 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://Scenes/GameScreen/Player/Player.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Scenes/GameScreen/Background/Background.tscn" type="PackedScene" id=2]
 [ext_resource path="res://Scenes/GameScreen/Terrain/TileMap/TileMap.tscn" type="PackedScene" id=3]
+[ext_resource path="res://Assets/Placeholders/Noto_Sans/NotoSans-Regular.ttf" type="DynamicFontData" id=4]
 [ext_resource path="res://Scenes/GameScreen/Main/Main.gd" type="Script" id=5]
 [ext_resource path="res://Scenes/GameScreen/Monster/Monster.tscn" type="PackedScene" id=6]
+
+[sub_resource type="DynamicFont" id=1]
+size = 30
+font_data = ExtResource( 4 )
 
 [node name="Main" type="Node"]
 pause_mode = 2
@@ -32,6 +37,7 @@ margin_left = 20.0
 margin_top = -62.0
 margin_right = 88.0
 margin_bottom = -20.0
+custom_fonts/font = SubResource( 1 )
 text = "Pause"
 __meta__ = {
 "_edit_use_anchors_": false
@@ -49,6 +55,7 @@ __meta__ = {
 [node name="ColorRect" type="ColorRect" parent="GUI/Popup"]
 anchor_right = 1.0
 anchor_bottom = 1.0
+margin_top = -41.0
 color = Color( 0.298039, 0.298039, 0.298039, 1 )
 __meta__ = {
 "_edit_use_anchors_": false
@@ -59,10 +66,11 @@ anchor_left = 0.5
 anchor_top = 1.0
 anchor_right = 0.5
 anchor_bottom = 1.0
-margin_left = -32.0
-margin_top = -120.0
-margin_right = 32.0
+margin_left = -62.0
+margin_top = -148.0
+margin_right = 64.0
 margin_bottom = -100.0
+custom_fonts/font = SubResource( 1 )
 text = "Resume"
 
 [node name="Home" type="Button" parent="GUI/Popup/ColorRect"]
@@ -70,10 +78,11 @@ anchor_left = 0.5
 anchor_top = 1.0
 anchor_right = 0.5
 anchor_bottom = 1.0
-margin_left = -25.0
-margin_top = -41.0
-margin_right = 26.0
-margin_bottom = -21.0
+margin_left = -48.0
+margin_top = -76.0
+margin_right = 49.0
+margin_bottom = -28.0
+custom_fonts/font = SubResource( 1 )
 text = "Home"
 
 [node name="InvicibilityFrames" type="Timer" parent="."]

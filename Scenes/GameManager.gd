@@ -6,8 +6,6 @@ extends Node
 const home_scene_path = "res://Scenes/HomeScreen/Main/Main.tscn"
 const game_scene_path = "res://Scenes/GameScreen/Main/Main.tscn"
 const shop_scene_path = "res://Scenes/ShopScreen/Main/Main.tscn"
-const options_scene_path = "res://Scenes/OptionsScreen/Main/Main.tscn"
-const credits_scene_path = "res://Scenes/CreditsScreen/Main/Main.tscn"
 
 # Save path
 const save_path = "user://user.save"

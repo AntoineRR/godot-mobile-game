@@ -45,8 +45,8 @@ custom_constants/margin_bottom = 10
 [node name="Home" type="Button" parent="CanvasLayer/VBoxContainer/Top/MarginContainer"]
 margin_left = 10.0
 margin_top = 10.0
-margin_right = 60.0
-margin_bottom = 60.0
+margin_right = 44.0
+margin_bottom = 58.0
 custom_fonts/font = SubResource( 1 )
 text = "H"
 __meta__ = {
@@ -67,21 +67,21 @@ valign = 1
 [node name="Middle" type="MarginContainer" parent="CanvasLayer/VBoxContainer"]
 margin_top = 72.0
 margin_right = 540.0
-margin_bottom = 879.0
+margin_bottom = 878.0
 size_flags_vertical = 3
 
 [node name="Bottom" type="VBoxContainer" parent="CanvasLayer/VBoxContainer"]
-margin_top = 883.0
+margin_top = 882.0
 margin_right = 540.0
 margin_bottom = 960.0
 
 [node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/VBoxContainer/Bottom"]
 margin_right = 540.0
-margin_bottom = 58.0
+margin_bottom = 78.0
 custom_constants/margin_right = 30
 custom_constants/margin_top = 5
 custom_constants/margin_left = 30
-custom_constants/margin_bottom = 5
+custom_constants/margin_bottom = 25
 
 [node name="Start" type="Button" parent="CanvasLayer/VBoxContainer/Bottom/MarginContainer"]
 margin_left = 30.0
@@ -93,11 +93,5 @@ text = "Start"
 __meta__ = {
 "_edit_use_anchors_": false
 }
-
-[node name="MarginContainer2" type="MarginContainer" parent="CanvasLayer/VBoxContainer/Bottom"]
-margin_top = 62.0
-margin_right = 540.0
-margin_bottom = 77.0
-custom_constants/margin_top = 15
 [connection signal="pressed" from="CanvasLayer/VBoxContainer/Top/MarginContainer/Home" to="." method="_on_Home_pressed"]
 [connection signal="pressed" from="CanvasLayer/VBoxContainer/Bottom/MarginContainer/Start" to="." method="_on_Start_pressed"]
