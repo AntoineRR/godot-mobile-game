@@ -1,6 +1,6 @@
 extends Area2D
 
-var y_speed = 500
+var y_speed = 1000
 
 onready var player = get_node("../Player")
 

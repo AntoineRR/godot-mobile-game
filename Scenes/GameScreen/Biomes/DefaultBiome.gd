@@ -20,8 +20,8 @@ var tiles = preload("res://Scenes/GameScreen/Biomes/DefaultBiomeTileSet.tres").g
 # Those arrays define the probability of each tile appearing
 # The probability are given in 1/1000 format
 # [0] -> tile id, [1] -> probability
-var walls = [Biome.Tile.new(0, 100), Biome.Tile.new(1, 600), Biome.Tile.new(2, 300)]
-var obstacles = [Biome.Tile.new(3, 0), Biome.Tile.new(4, 10)]
+var walls = [Biome.Tile.new(0, 0), Biome.Tile.new(1, 1000)]
+var obstacles = [Biome.Tile.new(2, 10)]
 
 ### Entities infos
 
@@ -48,7 +48,6 @@ func spawn_tiles(tilemap, area_number) -> Array:
 
 # Generate the walls tiles
 func _spawn_walls(tilemap, area_number):
-	var tile_id = 0
 	for i in range(area_size.y):
 		# Left wall
 		_add_tile(tilemap, -1, area_size.y * area_number + i, 0)
@@ -59,7 +58,6 @@ func _spawn_walls(tilemap, area_number):
 
 # Generate the obstacles tiles
 func _spawn_obstacles(tilemap, area_number):
-	var flip_x = false
 	for i in range(1, area_size.x-2):
 		for j in range(area_size.y * area_number, area_size.y * (area_number + 1)):
 			if tilemap.get_cell(i-1, j) == 0:

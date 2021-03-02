@@ -10,7 +10,7 @@ var current_height = frames.get_frame(animation, frame).get_size().y
 onready var player = get_node("../Player")
 
 # Monster speed
-var speed = 200
+var speed = 400
 var seconds_before_catching_player = 3
 
 ### Signals ###

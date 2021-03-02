@@ -20,6 +20,7 @@ extents = Vector2( 12, 12 )
 
 [node name="Enemy1" type="Area2D"]
 pause_mode = 1
+scale = Vector2( 2, 2 )
 collision_layer = 2
 collision_mask = 11
 script = ExtResource( 2 )

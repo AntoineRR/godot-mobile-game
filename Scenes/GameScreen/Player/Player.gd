@@ -3,14 +3,14 @@ extends KinematicBody2D
 ### Variables ###
 
 # Movement
-export var max_x_speed = 200
-export var max_y_speed = 400
-export var y_acceleration = 0.005
-export var friction = 0.05
+export var max_x_speed = 400
+export var max_y_speed = 800
+export var y_acceleration = 0.01
+export var friction = 0.1
 
 # Feedback
-export var speed_shake_amplitude_factor = 2
-export var speed_shake_frequency = 15
+export var speed_shake_amplitude_factor = 4
+export var speed_shake_frequency = 30
 
 var velocity = Vector2.ZERO
 var stop = false

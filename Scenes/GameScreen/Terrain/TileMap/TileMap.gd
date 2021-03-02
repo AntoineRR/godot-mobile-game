@@ -13,6 +13,7 @@ var terrainAreas = []
 ### Overriden methods ###
 
 func _ready():
+	collision_use_kinematic = true
 	biome = randi() % GameManager.biomes.size() # Choose biome randomly
 	area_y_size = cell_size.y * GameManager.biomes[biome].area_size.y
 	n_areas_to_load = get_viewport().size.y / area_y_size + 2
