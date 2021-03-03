@@ -22,6 +22,7 @@ position = Vector2( 270, 0 )
 position = Vector2( -1, 0 )
 
 [node name="TileMap" parent="." instance=ExtResource( 3 )]
+tile_data = PoolIntArray(  )
 
 [node name="Monster" parent="." instance=ExtResource( 6 )]
 pause_mode = 1

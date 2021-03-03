@@ -2,10 +2,12 @@ class_name Biome
 
 class Tile:
 	var id
+	var resource
 	var probability
 	
-	func _init(id_, probability_):
+	func _init(id_, resource_, probability_):
 		id = id_
+		resource = resource_
 		probability = probability_
 
 class Enemy:

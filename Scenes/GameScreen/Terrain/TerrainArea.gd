@@ -63,8 +63,10 @@ func spawn_coins(n):
 
 func destroy():
 	# Remove tiles
-	for coords in loaded_tiles:
-		tilemap.set_cell(coords.x, coords.y, -1)
+	for tile in loaded_tiles:
+		if weakref(tile).get_ref():
+			tilemap.call_deferred("remove_child",tile)
+			tile.call_deferred("queue_free")
 	# Remove enemies
 	for elt in loaded_enemies:
 		# If the object wasn't already destroyed

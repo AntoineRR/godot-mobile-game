@@ -14,10 +14,10 @@ animations = [ {
 "speed": 5.0
 } ]
 
-[node name="Circular" type="RigidBody2D"]
+[node name="Circular" type="Area2D"]
+scale = Vector2( 2, 2 )
 collision_layer = 0
 collision_mask = 8
-contacts_reported = 1
 script = ExtResource( 2 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
@@ -25,4 +25,4 @@ shape = SubResource( 1 )
 
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
 frames = SubResource( 2 )
-[connection signal="body_shape_entered" from="." to="." method="_on_Circular_body_shape_entered"]
+[connection signal="body_entered" from="." to="." method="_on_Circular_body_entered"]
