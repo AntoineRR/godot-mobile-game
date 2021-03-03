@@ -16,6 +16,10 @@ var velocity = Vector2.ZERO
 var stop = false
 var max_speed = false
 
+# Weapon
+export(PackedScene) var weapon
+var is_weapon_usable = true
+
 ### Signals ###
 
 signal player_died
@@ -38,12 +42,15 @@ func _unhandled_input(event):
 	if GameManager.os_name == "Android":
 		if event is InputEventScreenTouch:
 			if event.pressed:
-				if event.position.x < get_viewport_rect().size.x / 2:
-					velocity.x = -max_x_speed
+				if event.position.y > 4 * get_viewport_rect().size.y / 5:
+					use_weapon()
 				else:
-					velocity.x = max_x_speed
-				max_speed = true
-				get_node("TimeAtMaxSpeed").start()
+					if event.position.x < get_viewport_rect().size.x / 2:
+						velocity.x = -max_x_speed
+					else:
+						velocity.x = max_x_speed
+					max_speed = true
+					get_node("TimeAtMaxSpeed").start()
 
 ### Custom Methods ###
 
@@ -63,8 +70,19 @@ func update_velocity(_delta):
 				get_node("TimeAtMaxSpeed").start()
 			elif not max_speed:
 				velocity.x = lerp(velocity.x, 0, friction)
+			
+			if Input.is_action_just_pressed("ui_accept"):
+				use_weapon()
 		
 		velocity.y = lerp(velocity.y, max_y_speed, y_acceleration)
+
+func use_weapon():
+	if is_weapon_usable:
+		var w = weapon.instance()
+		add_child(w)
+		get_node("WeaponCooldown").wait_time = w.cooldown
+		get_node("WeaponCooldown").start()
+		is_weapon_usable = false
 
 func take_damage(duration):
 	if not stop:
@@ -81,3 +99,6 @@ func _on_Monster_caught_player():
 
 func _on_TimeAtMaxSpeed_timeout():
 	max_speed = false
+
+func _on_WeaponCooldown_timeout():
+	is_weapon_usable = true
