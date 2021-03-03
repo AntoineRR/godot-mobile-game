@@ -9,5 +9,9 @@ func _on_Circular_body_entered(body):
 	if body.destroyable:
 		body.call_deferred("queue_free")
 
+func _on_Circular_area_entered(area):
+	area.call_deferred("queue_free")
+
 func _on_Duration_timeout():
 	call_deferred("queue_free")
+
