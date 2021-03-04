@@ -3,6 +3,8 @@
 
 extends Camera2D
 
+onready var player = get_node("../")
+
 var _duration = 0.0
 var _period_in_ms = 0.0
 var _amplitude = 0.0
@@ -40,6 +42,9 @@ func _process(delta):
 	if _timer <= 0:
 		_timer = 0
 		set_offset(get_offset() - _last_offset)
+	
+	# Change position
+	position.y = lerp(position.y, -player.velocity.y * 0.1, 0.3)
 
 # Kick off a new screenshake effect.
 func shake(duration, frequency, amplitude):

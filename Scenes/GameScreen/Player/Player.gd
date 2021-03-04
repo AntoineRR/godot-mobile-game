@@ -40,17 +40,18 @@ func _physics_process(_delta):
 
 func _unhandled_input(event):
 	if GameManager.os_name == "Android":
-		if event is InputEventScreenTouch:
-			if event.pressed:
-				if event.position.y > 4 * get_viewport_rect().size.y / 5:
-					use_weapon()
-				else:
-					if event.position.x < get_viewport_rect().size.x / 2:
-						velocity.x = -max_x_speed
+		if not stop:
+			if event is InputEventScreenTouch:
+				if event.pressed:
+					if event.position.y > 4 * get_viewport_rect().size.y / 5:
+						use_weapon()
 					else:
-						velocity.x = max_x_speed
-					max_speed = true
-					get_node("TimeAtMaxSpeed").start()
+						if event.position.x < get_viewport_rect().size.x / 2:
+							velocity.x = -max_x_speed
+						else:
+							velocity.x = max_x_speed
+						max_speed = true
+						get_node("TimeAtMaxSpeed").start()
 
 ### Custom Methods ###
 
