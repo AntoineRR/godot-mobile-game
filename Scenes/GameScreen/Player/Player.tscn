@@ -1,8 +1,9 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://icon.png" type="Texture" id=1]
 [ext_resource path="res://Scenes/GameScreen/Player/Player.gd" type="Script" id=2]
 [ext_resource path="res://Scenes/GameScreen/Player/Camera2D.gd" type="Script" id=3]
+[ext_resource path="res://Scenes/GameScreen/Player/inputHandler.gd" type="Script" id=4]
 
 [sub_resource type="SpriteFrames" id=1]
 animations = [ {
@@ -49,10 +50,18 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="TimeAtMaxSpeed" type="Timer" parent="."]
-wait_time = 0.05
+[node name="WeaponCooldown" type="Timer" parent="."]
+
+[node name="InputHandler" type="Node2D" parent="."]
+script = ExtResource( 4 )
+
+[node name="MinHodingTime" type="Timer" parent="InputHandler"]
+wait_time = 0.5
 one_shot = true
 
-[node name="WeaponCooldown" type="Timer" parent="."]
-[connection signal="timeout" from="TimeAtMaxSpeed" to="." method="_on_TimeAtMaxSpeed_timeout"]
+[node name="TimeAtMaxSpeed" type="Timer" parent="InputHandler"]
+wait_time = 0.05
+one_shot = true
 [connection signal="timeout" from="WeaponCooldown" to="." method="_on_WeaponCooldown_timeout"]
+[connection signal="timeout" from="InputHandler/MinHodingTime" to="InputHandler" method="_on_MinHodingTime_timeout"]
+[connection signal="timeout" from="InputHandler/TimeAtMaxSpeed" to="InputHandler" method="_on_TimeAtMaxSpeed_timeout"]
