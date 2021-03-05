@@ -13,6 +13,10 @@ onready var player = get_node("../Player")
 var speed = 400
 var seconds_before_catching_player = 3
 
+# Projectiles speed
+var min_proj_speed = 900
+var max_proj_speed = 2000
+
 ### Signals ###
 
 signal caught_player
@@ -44,7 +48,10 @@ func check_if_player_caught():
 
 
 func _on_ProjectileReload_timeout():
-	var projectile = projectiles[0].instance()
+	var proj_index = randi() % projectiles.size()
+	var projectile = projectiles[proj_index].instance()
+	var proj_speed = min_proj_speed + randi() % (max_proj_speed - min_proj_speed)
+	projectile.y_speed = proj_speed
 	projectile.position.x = randi() % int(get_viewport().size.x)
 	projectile.position.y = position.y
 	projectile.z_index = 2

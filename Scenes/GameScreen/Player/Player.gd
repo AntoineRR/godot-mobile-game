@@ -36,7 +36,13 @@ func _process(delta):
 	get_node("Label").text = str(UserData.money)
 
 func _physics_process(_delta):
-	velocity = move_and_slide(velocity, Vector2(0,-1))
+	#velocity = move_and_slide(velocity, Vector2(0,-1))
+	var collision_infos = move_and_collide(velocity * _delta)
+	if collision_infos:
+		if collision_infos.normal.y < -0.9:
+			velocity.y = velocity.bounce(collision_infos.normal).y * collision_infos.collider.y_bounciness
+		else:
+			velocity.x = velocity.bounce(collision_infos.normal).x * collision_infos.collider.x_bounciness
 
 func _unhandled_input(event):
 	if not stop:

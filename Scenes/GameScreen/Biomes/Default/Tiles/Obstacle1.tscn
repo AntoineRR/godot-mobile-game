@@ -18,6 +18,8 @@ extents = Vector2( 24, 24 )
 collision_layer = 8
 script = ExtResource( 2 )
 destroyable = true
+x_bounciness = 0.5
+y_bounciness = 0.2
 
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
 frames = SubResource( 1 )
