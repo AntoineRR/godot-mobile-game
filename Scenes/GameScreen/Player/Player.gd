@@ -23,9 +23,9 @@ signal player_died
 
 ### Node Methods ###
 
-func _process(delta):
+func _process(_delta):
 	if not stop:
-		velocity = input_handler.update_velocity(delta, velocity)
+		velocity = input_handler.update_velocity(velocity)
 	
 	# The shake camera effect needs to be handled by the enemy/projectile when we hit it
 	# That is why we check for velocity first, a velocity close to zero means we hit an enemy/projectile
