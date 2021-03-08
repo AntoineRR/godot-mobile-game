@@ -11,7 +11,7 @@ region = Rect2( 0, 0, 24, 24 )
 animations = [ {
 "frames": [ SubResource( 1 ) ],
 "loop": true,
-"name": "default",
+"name": "idle",
 "speed": 5.0
 } ]
 
@@ -27,6 +27,7 @@ script = ExtResource( 2 )
 
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
 frames = SubResource( 2 )
+animation = "idle"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource( 3 )

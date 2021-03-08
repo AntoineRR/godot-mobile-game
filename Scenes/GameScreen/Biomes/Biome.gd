@@ -19,3 +19,11 @@ class Enemy:
 		resource = resource_
 		probability = probability_
 		size = size_
+
+class Coin:
+	var resource
+	var probability
+	
+	func _init(resource_, probability_):
+		resource = resource_
+		probability = probability_

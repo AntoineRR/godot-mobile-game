@@ -5,12 +5,6 @@ class_name DefaultBiome
 # Area size in tiles
 var area_size = Vector2(12, 15)
 
-var min_enemies_in_area = 1
-var max_enemies_in_area = 3
-
-var min_coins_in_area = 2
-var max_coins_in_area = 5
-
 ### Tiles infos
 
 # Probability arrays
@@ -30,13 +24,13 @@ var tiles = walls + obstacles
 ### Entities infos
 
 # Enemies that can spawn
-var enemy_scenes = [
-	Biome.Enemy.new(preload("res://Scenes/GameScreen/Enemies/Enemy1.tscn"), 30, Vector2(1,1))
+var enemies = [
+	Biome.Enemy.new(preload("res://Scenes/GameScreen/Enemies/Enemy1.tscn"), 10, Vector2(1,1))
 ]
 
 # Coins that can spawn
-var coin_scenes = [
-	preload("res://Scenes/GameScreen/Bonus/Money/Money.tscn")
+var coins = [
+	Biome.Coin.new(preload("res://Scenes/GameScreen/Bonus/Money/Money.tscn"), 10)
 ]
 
 ### Tiles spawning methods
@@ -64,13 +58,6 @@ func _spawn_walls(tilemap, area_number):
 func _spawn_obstacles(tilemap, area_number):
 	for i in range(1, area_size.x-2):
 		for j in range(area_size.y * area_number, area_size.y * (area_number + 1)):
-			if tilemap.get_cell(i-1, j) == 0:
-				_add_tile(tilemap, i, j, obstacles[0].id, false)
-				continue
-			elif tilemap.get_cell(i+1, j) == 0:
-				_add_tile(tilemap, i, j, obstacles[0].id, true)
-				continue
-			
 			var id = _get_id_from_tiles(obstacles)
 			if id != -1:
 				_add_tile(tilemap, i, j, id)
@@ -78,6 +65,8 @@ func _spawn_obstacles(tilemap, area_number):
 # Add the tile to the scene and to loaded_tiles
 func _add_tile(tilemap, x, y, id, flip_x=false):
 	# Set cell in tilemap
+	tilemap.set_cell(x, y, 0)
+	# Spawn tile scene
 	var position = tilemap.map_to_world(Vector2(x,y))
 	var tile = tiles[id].resource.instance()
 	tile.position = position + tilemap.cell_size/2
