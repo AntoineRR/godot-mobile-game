@@ -44,10 +44,6 @@ func _physics_process(_delta):
 		else:
 			velocity.x = velocity.bounce(collision_infos.normal).x * collision_infos.collider.x_bounciness
 
-func _unhandled_input(event):
-	if not stop:
-		input_handler.handle_event(event)
-
 ### Custom Methods ###
 
 func use_weapon():
