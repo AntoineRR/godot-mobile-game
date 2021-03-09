@@ -19,11 +19,11 @@ func _ready():
 	n_areas_to_load = get_viewport().size.y / area_y_size + 2
 	current_area = -int(n_areas_to_load/2) - 1
 	for _i in range(n_areas_to_load):
-		generate_next_area()
+		generate_next_area(true)
 
-func generate_next_area():
+func generate_next_area(empty=false):
 	var area = TerrainArea.new(self, current_area, biome)
-	area.spawn()
+	area.spawn(empty)
 	terrainAreas.append(area)
 	current_area += 1
 

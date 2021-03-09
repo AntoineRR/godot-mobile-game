@@ -39,10 +39,11 @@ var coins = [
 var loaded_tiles = []
 
 # Called from terrainArea to spawn the tiles
-func spawn_tiles(tilemap, area_number) -> Array:
+func spawn_tiles(tilemap, area_number, empty=false) -> Array:
 	loaded_tiles = []
 	_spawn_walls(tilemap, area_number)
-	_spawn_obstacles(tilemap, area_number)
+	if not empty:
+		_spawn_obstacles(tilemap, area_number)
 	return loaded_tiles
 
 # Generate the walls tiles

@@ -17,10 +17,11 @@ func _init(tilemap_, area_number_, biome_):
 	biome = GameManager.biomes[biome_]
 	area_size = biome.area_size
 
-func spawn():
-	loaded_tiles = biome.spawn_tiles(tilemap, area_number)
-	spawn_enemies()
-	spawn_coins()
+func spawn(empty=false):
+	loaded_tiles = biome.spawn_tiles(tilemap, area_number, empty)
+	if not empty:
+		spawn_enemies()
+		spawn_coins()
 
 func spawn_enemies():
 	for i in range(1, area_size.x-2):
