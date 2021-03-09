@@ -16,7 +16,8 @@ var walls = [
 	Biome.Tile.new(1, preload("res://Scenes/GameScreen/Biomes/Default/Tiles/Wall2.tscn"), 1000)
 ]
 var obstacles = [
-	Biome.Tile.new(2, preload("res://Scenes/GameScreen/Biomes/Default/Tiles/Obstacle1.tscn"), 10)
+	Biome.Tile.new(2, preload("res://Scenes/GameScreen/Biomes/Default/Tiles/Obstacle1.tscn"), 10),
+	Biome.Tile.new(3, preload("res://Scenes/GameScreen/Biomes/Default/Tiles/Obstacle2.tscn"), 20)
 ]
 
 var tiles = walls + obstacles
