@@ -11,6 +11,7 @@ Prototyping - Adjusting gameplay
 - Follow [those steps](https://docs.godotengine.org/en/stable/getting_started/workflow/export/exporting_for_android.html) to get it running on your Android device.
 
 ## Next steps
+* Increase the difficulty over time
 * Add new special tiles
 * Add different type of weapons
 * Build the shopping system
