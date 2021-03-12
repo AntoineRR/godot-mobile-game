@@ -75,12 +75,13 @@ margin_right = 540.0
 margin_bottom = 960.0
 size_flags_vertical = 3
 script = ExtResource( 7 )
+views_elts = [ NodePath("Views/Inventory"), NodePath("Views/Hub"), NodePath("Views/Shop") ]
+focused_view = 1
 
 [node name="Views" type="HBoxContainer" parent="CanvasLayer/VBoxContainer/Middle"]
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_left = -540.0
-margin_right = 540.0
+margin_right = 1080.0
 rect_min_size = Vector2( 1620, 0 )
 size_flags_horizontal = 0
 __meta__ = {
@@ -103,6 +104,6 @@ margin_bottom = 888.0
 size_flags_horizontal = 3
 
 [node name="SwipeTween" type="Tween" parent="CanvasLayer/VBoxContainer/Middle/Views"]
-playback_speed = 4.0
-playback/speed = 4.0
+playback_speed = 20.0
+playback/speed = 20.0
 [connection signal="pressed" from="CanvasLayer/VBoxContainer/Top/MarginContainer/Home" to="." method="_on_Home_pressed"]
