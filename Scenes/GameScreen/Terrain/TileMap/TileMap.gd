@@ -2,8 +2,6 @@ extends TileMap
 
 ### Variables ###
 
-var biome = 0
-
 var current_area = -1 # Area number
 var n_areas_to_load = 0
 var area_y_size = 0
@@ -14,15 +12,16 @@ var terrainAreas = []
 
 func _ready():
 	collision_use_kinematic = true
-	biome = randi() % GameManager.biomes.size() # Choose biome randomly
-	area_y_size = cell_size.y * GameManager.biomes[biome].area_size.y
+	var n_biome = randi() % GameManager.biomes.size() # Choose biome randomly
+	GameManager.biome = GameManager.biomes[n_biome]
+	area_y_size = cell_size.y * GameManager.biome.area_size.y
 	n_areas_to_load = get_viewport().size.y / area_y_size + 2
 	current_area = -int(n_areas_to_load/2) - 1
 	for _i in range(n_areas_to_load):
 		generate_next_area(true)
 
 func generate_next_area(empty=false):
-	var area = TerrainArea.new(self, current_area, biome)
+	var area = TerrainArea.new(self, current_area, GameManager.biome)
 	area.spawn(empty)
 	terrainAreas.append(area)
 	current_area += 1

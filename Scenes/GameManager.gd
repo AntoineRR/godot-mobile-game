@@ -21,6 +21,11 @@ var biomes = {
 	0: DefaultBiome.new()
 }
 
+# Game variables
+var biome
+var level = 0
+var start_of_level_position = 0
+
 # Utilities
 var os_name = OS.get_name()
 
@@ -28,7 +33,7 @@ var os_name = OS.get_name()
 
 func _ready():
 	current_screen = home_scene_path
-	load_game()
+	load_save()
 	randomize()
 
 # === Custom methods ===
@@ -71,7 +76,7 @@ func save_game():
 		save_file.store_line(to_json(node_data))
 	save_file.close()
 
-func load_game():
+func load_save():
 	var save_file = File.new()
 	if not save_file.file_exists(save_path):
 		return
