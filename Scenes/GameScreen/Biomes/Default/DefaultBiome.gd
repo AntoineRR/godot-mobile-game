@@ -28,6 +28,11 @@ class Level1:
 	
 	## Level data
 	var size = 20000
+	var monster_speed = 300
+	var n_seconds_player_safe = 4
+	var projectile_reload_time = 5
+	var player_y_acceleration = 0.01
+	var player_max_speed = 700
 
 class Level2:
 	## Tiles infos
@@ -50,6 +55,11 @@ class Level2:
 	
 	## Level data
 	var size = 30000
+	var monster_speed = 500
+	var n_seconds_player_safe = 3
+	var projectile_reload_time = 3
+	var player_y_acceleration = 0.015
+	var player_max_speed = 850
 
 class Level3:
 	## Tiles infos
@@ -72,6 +82,11 @@ class Level3:
 	
 	## Level data
 	var size = 50000
+	var monster_speed = 700
+	var n_seconds_player_safe = 3
+	var projectile_reload_time = 2
+	var player_y_acceleration = 0.02
+	var player_max_speed = 1000
 
 var levels = [
 	Level1.new(),

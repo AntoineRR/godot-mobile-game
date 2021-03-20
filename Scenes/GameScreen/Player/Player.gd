@@ -51,6 +51,10 @@ func _physics_process(_delta):
 
 ### Custom Methods ###
 
+func update_parameters():
+	input_handler.max_y_speed = GameManager.biome.get_level().player_max_speed
+	input_handler.y_acceleration = GameManager.biome.get_level().player_y_acceleration
+
 func use_weapon():
 	if is_weapon_usable:
 		var w = weapon.instance()

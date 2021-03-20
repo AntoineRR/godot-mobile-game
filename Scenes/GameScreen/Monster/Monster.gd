@@ -6,8 +6,10 @@ export (Array, PackedScene) var projectiles
 
 ### Variables ###
 
-var current_height = frames.get_frame(animation, frame).get_size().y
 onready var player = get_node("../Player")
+onready var projectile_reload_timer = get_node("ProjectileReload")
+
+var current_height = frames.get_frame(animation, frame).get_size().y
 
 # Monster speed
 var speed = 400
@@ -32,11 +34,18 @@ func _process(delta):
 
 ### Custom Methods ###
 
+func update_parameters():
+	speed = GameManager.biome.get_level().monster_speed
+	min_proj_speed = speed * 2.5
+	max_proj_speed = speed * 5
+	seconds_before_catching_player = GameManager.biome.get_level().n_seconds_player_safe
+	projectile_reload_timer.wait_time = GameManager.biome.get_level().projectile_reload_time
+
 func get_new_position(delta) -> Vector2:
 	var pos = position
 	var player_relative_position = player.position.y - pos.y
 	if player_relative_position > speed * seconds_before_catching_player:
-		pos.y = player.position.y - speed * seconds_before_catching_player
+		pos.y = max(speed, player.position.y - speed * seconds_before_catching_player)
 	else:
 		pos.y += speed * delta
 
