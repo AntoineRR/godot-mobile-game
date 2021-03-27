@@ -45,9 +45,9 @@ func _physics_process(_delta):
 	var collision_infos = move_and_collide(velocity * _delta)
 	if collision_infos:
 		if collision_infos.normal.y < -0.9:
-			velocity.y = velocity.bounce(collision_infos.normal).y * collision_infos.collider.y_bounciness
+			velocity.y = velocity.bounce(collision_infos.normal).y * 0.1
 		else:
-			velocity.x = velocity.bounce(collision_infos.normal).x * collision_infos.collider.x_bounciness
+			velocity.x = velocity.bounce(collision_infos.normal).x * 0.1
 
 ### Custom Methods ###
 
