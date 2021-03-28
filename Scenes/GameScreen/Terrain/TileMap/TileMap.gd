@@ -4,6 +4,8 @@ const CELL_SIZE = Vector2(48, 48)
 
 var areas
 
+var destroyable = false
+
 var loaded_areas = []
 var y_upper_cell = 0 # y position of the lowest cell of the top loaded area
 var y_lower_cell = 0 # y position of the lowest cell of the bottom loaded area

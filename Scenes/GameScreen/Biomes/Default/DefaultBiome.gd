@@ -3,7 +3,7 @@ class_name DefaultBiome
 ### Infos about one biome area
 
 var Areas = preload("res://Scenes/GameScreen/Biomes/Default/Areas/Areas.tscn")
-var tileset_path = "res://Scenes/GameScreen/Biomes/Default/Areas/Areas.tres"
+var tileset_path = "res://Scenes/GameScreen/Biomes/Default/Default.tres"
 
 ### Levels infos
 
