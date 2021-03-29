@@ -14,7 +14,7 @@ animations = [ {
 [sub_resource type="RectangleShape2D" id=2]
 extents = Vector2( 24, 24 )
 
-[node name="RigidBody2D" type="StaticBody2D"]
+[node name="Obstacle1" type="StaticBody2D"]
 collision_layer = 8
 script = ExtResource( 2 )
 destroyable = true

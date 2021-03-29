@@ -1,41 +1,54 @@
 extends TileMap
 
-### Variables ###
+const CELL_SIZE = Vector2(48, 48)
 
-var current_area = -1 # Area number
-var n_areas_to_load = 0
-var area_y_size = 0
+var areas
 
-var terrainAreas = []
+var destroyable = false
+
+var loaded_areas = []
+var y_upper_cell = 0 # y position of the lowest cell of the top loaded area
+var y_lower_cell = 0 # y position of the lowest cell of the bottom loaded area
+var n_cell_on_screen_height = 0
+
+var segmentAreas = []
 
 ### Overriden methods ###
 
 func _ready():
-	collision_use_kinematic = true
-	var n_biome = randi() % GameManager.biomes.size() # Choose biome randomly
-	GameManager.biome = GameManager.biomes[n_biome]
-	area_y_size = cell_size.y * GameManager.biome.area_size.y
-	n_areas_to_load = get_viewport().size.y / area_y_size + 2
-	current_area = -int(n_areas_to_load/2) - 1
-	for _i in range(n_areas_to_load):
+	GameManager.biome = GameManager.biomes[randi() % GameManager.biomes.size()]
+	self.tile_set = load(GameManager.biome.tileset_path)
+	areas = GameManager.biome.Areas.instance()
+	n_cell_on_screen_height = get_viewport().size.y / CELL_SIZE.y
+	y_upper_cell = int(-(get_viewport().size.y - 100) / CELL_SIZE.y)
+	y_lower_cell = y_upper_cell
+	generate_next_area(true)
+	y_upper_cell = y_lower_cell
+	while y_lower_cell < n_cell_on_screen_height:
 		generate_next_area(true)
 
 func generate_next_area(empty=false):
-	var area = TerrainArea.new(self, current_area, GameManager.biome)
-	area.spawn(empty)
-	terrainAreas.append(area)
-	current_area += 1
+	# Choose a random segment
+	var level_areas = areas.get_child(GameManager.level)
+	var area_index = 0
+	if not empty:
+		area_index = randi() % level_areas.get_child_count()
+	var area_tilemap = level_areas.get_child(area_index)
+	var area = SegmentArea.new(self, area_tilemap, y_lower_cell)
+	area.spawn()
+	y_lower_cell += area.size
+	segmentAreas.append(area)
 
 func _process(_delta):
-	var player_y_pos = get_node("../Player").position.y
-	if player_y_pos >= area_y_size * (current_area - 1):
-		destroy_previous_area()
+	var camera_y_pos = get_node("../Player/Camera2D").position.y + get_node("../Player").position.y
+	if camera_y_pos + (get_viewport().size.y / 2) + 100 > y_lower_cell * CELL_SIZE.y:
 		generate_next_area()
-
-### Custom methods ###
+	if camera_y_pos - (get_viewport().size.y / 2) - 100 > y_upper_cell * CELL_SIZE.y:
+		destroy_upper_area()
 
 # Destroys the top area
-func destroy_previous_area():
-	var to_destroy = terrainAreas[0]
+func destroy_upper_area():
+	y_upper_cell = segmentAreas[1].y_top_cells + segmentAreas[1].size
+	var to_destroy = segmentAreas[0]
 	to_destroy.destroy()
-	terrainAreas.remove(0)
+	segmentAreas.remove(0)
