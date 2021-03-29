@@ -68,9 +68,6 @@ func spawn():
 		new_object.position.y += y_top_cells * tilemap.CELL_SIZE.y
 		tilemap.add_child(new_object)
 		loaded_objects.append(new_object)
-		
-	# TODO : spawn ennemies
-	# TODO : spawn coins
 
 func destroy():
 	# Remove tiles
@@ -81,7 +78,7 @@ func destroy():
 		# If the object wasn't already destroyed
 		if weakref(elt).get_ref():
 			tilemap.set_cellv(tilemap.world_to_map(elt.position), -1)
-			tilemap.get_parent().call_deferred("remove_child",elt)
+			tilemap.call_deferred("remove_child",elt)
 			elt.call_deferred("queue_free")
 	# Destroy area
 	self.call_deferred("queue_free")
