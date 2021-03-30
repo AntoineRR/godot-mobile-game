@@ -20,7 +20,7 @@ var is_weapon_usable = true
 ### Signals ###
 
 signal player_died
-signal player_finished_level
+signal player_finished_sub_level
 
 ### Node Methods ###
 
@@ -34,8 +34,8 @@ func _process(_delta):
 		# Shake camera when speed increases
 		get_node("Camera2D").shake(0.1, speed_shake_frequency, speed_shake_amplitude_factor * velocity.y / input_handler.max_y_speed)
 	
-	if position.y - GameManager.start_of_level_position > GameManager.biome.get_level().size:
-		emit_signal("player_finished_level")
+	if position.y - GameManager.start_of_sub_level_position > GameManager.biome.get_sub_level_size():
+		emit_signal("player_finished_sub_level")
 	
 	# temp
 	get_node("Label").text = str(UserData.money)

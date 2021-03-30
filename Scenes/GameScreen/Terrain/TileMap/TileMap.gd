@@ -28,12 +28,15 @@ func _ready():
 		generate_next_area(true)
 
 func generate_next_area(empty=false):
-	# Choose a random segment
+	# Get the level node
 	var level_areas = areas.get_child(GameManager.level)
+	# Get the sub level node
+	var sub_level_areas = level_areas.get_child(GameManager.sub_level)
+	# Get a random area inside the sub level
 	var area_index = 0
 	if not empty:
-		area_index = randi() % level_areas.get_child_count()
-	var area_tilemap = level_areas.get_child(area_index)
+		area_index = randi() % sub_level_areas.get_child_count()
+	var area_tilemap = sub_level_areas.get_child(area_index)
 	var area = SegmentArea.new(self, area_tilemap, y_lower_cell)
 	area.spawn()
 	y_lower_cell += area.size

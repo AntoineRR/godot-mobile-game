@@ -93,7 +93,7 @@ text = "Home"
 wait_time = 0.5
 one_shot = true
 [connection signal="player_died" from="Player" to="." method="end_game"]
-[connection signal="player_finished_level" from="Player" to="." method="level_finished"]
+[connection signal="player_finished_sub_level" from="Player" to="." method="sub_level_finished"]
 [connection signal="caught_player" from="Monster" to="Player" method="_on_Monster_caught_player"]
 [connection signal="pressed" from="GUI/Pause" to="." method="_on_Pause_pressed"]
 [connection signal="pressed" from="GUI/Popup/ColorRect/Resume" to="." method="_on_Resume_pressed"]

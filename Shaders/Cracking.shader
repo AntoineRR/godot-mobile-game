@@ -47,7 +47,8 @@ float getBorder(in vec2 p, in vec2 f)
 {
     float d = voronoiDistance(p, f);
 
-    return 1.0 - smoothstep(0.0,thickness * fragmentation,d);
+    return step(thickness*fragmentation,d);
+	//return 1.0 - smoothstep(0.0,thickness * fragmentation,d);
 }
 
 void fragment() {
@@ -60,7 +61,7 @@ void fragment() {
     vec2 f_st = fract(st);
 
     // Draw the min distance (distance field)
-    color += 1.0 - getBorder(i_st, f_st);
+    color += getBorder(i_st, f_st);
 
 	color *= texture(TEXTURE, UV).xyz;
 

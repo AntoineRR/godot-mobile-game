@@ -24,7 +24,8 @@ var biomes = {
 # Game variables
 var biome
 var level = 0
-var start_of_level_position = 0
+var sub_level = 0
+var start_of_sub_level_position = 0
 
 # Utilities
 var os_name = OS.get_name()
