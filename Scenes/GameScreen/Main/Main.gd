@@ -11,12 +11,13 @@ func _ready():
 # Game methods
 
 func sub_level_finished():
-	if GameManager.sub_level < GameManager.biome.get_level().sub_level_size.size() - 1:
-		GameManager.start_of_sub_level_position += GameManager.biome.get_sub_level_size()
-		GameManager.sub_level += 1
-		load_sub_level()
-	else:
-		level_finished()
+	if not GameManager.play_testing:
+		if GameManager.sub_level < GameManager.biome.get_level().sub_level_size.size() - 1:
+			GameManager.start_of_sub_level_position += GameManager.biome.get_sub_level_size()
+			GameManager.sub_level += 1
+			load_sub_level()
+		else:
+			level_finished()
 
 func level_finished():
 	if GameManager.level < GameManager.biome.levels.size() - 1:
