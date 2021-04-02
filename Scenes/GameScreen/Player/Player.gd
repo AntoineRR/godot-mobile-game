@@ -32,7 +32,8 @@ func _process(_delta):
 	# That is why we check for velocity first, a velocity close to zero means we hit an enemy/projectile
 	if velocity.y - 20 > 0:
 		# Shake camera when speed increases
-		get_node("Camera2D").shake(0.1, speed_shake_frequency, speed_shake_amplitude_factor * velocity.y / input_handler.max_y_speed)
+		var amplitude = (speed_shake_amplitude_factor*velocity.y) / input_handler.max_y_speed
+		get_node("Camera2D").shake(0.1, speed_shake_frequency, amplitude)
 	
 	if position.y - GameManager.start_of_sub_level_position > GameManager.biome.get_sub_level_size():
 		emit_signal("player_finished_sub_level")
@@ -72,6 +73,9 @@ func take_damage(duration):
 		timer.start()
 		yield(timer, "timeout")
 		stop = false
+
+func reduce_velocity(obstacle_hp):
+	velocity.y -= obstacle_hp/(velocity.y/1000)
 
 func _on_Monster_caught_player():
 	emit_signal("player_died")

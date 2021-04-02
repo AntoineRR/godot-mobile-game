@@ -6,4 +6,7 @@ func _on_Enemy1_body_entered(body):
 	if body.get_collision_layer_bit(0):
 		player.take_damage(0.5)
 		player.get_node("Camera2D").shake(0.5, 15, 8)
-		queue_free()
+		destroy()
+
+func destroy():
+	queue_free()

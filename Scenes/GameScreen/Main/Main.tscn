@@ -26,6 +26,7 @@ weapon = ExtResource( 7 )
 position = Vector2( -1, 0 )
 
 [node name="TileMap" parent="." instance=ExtResource( 3 )]
+collision_layer = 16
 
 [node name="Monster" parent="." instance=ExtResource( 6 )]
 pause_mode = 1

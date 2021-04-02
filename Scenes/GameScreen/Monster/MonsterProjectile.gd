@@ -12,4 +12,7 @@ func _process(delta):
 func _on_MonsterProjectile_body_entered(_body):
 	player.take_damage(0.5)
 	player.get_node("Camera2D").shake(0.5, 15, 8)
+	destroy()
+
+func destroy():
 	queue_free()
