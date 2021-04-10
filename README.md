@@ -10,12 +10,5 @@ Prototyping - Adjusting gameplay
 - Launch `project.godot` in [Godot engine](https://godotengine.org/).
 - Follow [those steps](https://docs.godotengine.org/en/stable/getting_started/workflow/export/exporting_for_android.html) to get it running on your Android device.
 
-## Next steps
-* Increase the difficulty over time
-* Add new special tiles
-* Add different type of weapons
-* Build the shopping system
-* Replace placeholders with final assets
-
 ## License
 The code is currently under the [GNU GPL v3.0](LICENSE) license.

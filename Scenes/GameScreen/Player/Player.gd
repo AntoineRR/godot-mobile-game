@@ -45,10 +45,13 @@ func _physics_process(_delta):
 	#velocity = move_and_slide(velocity, Vector2(0,-1))
 	var collision_infos = move_and_collide(velocity * _delta)
 	if collision_infos:
+		var bounciness = 0.1
+		if collision_infos.collider is StaticBody2D:
+			bounciness = collision_infos.collider.bounciness
 		if collision_infos.normal.y < -0.9:
-			velocity.y = velocity.bounce(collision_infos.normal).y * 0.1
+			velocity.y = velocity.bounce(collision_infos.normal).y * bounciness
 		else:
-			velocity.x = velocity.bounce(collision_infos.normal).x * 0.1
+			velocity.x = velocity.bounce(collision_infos.normal).x * bounciness
 
 ### Custom Methods ###
 

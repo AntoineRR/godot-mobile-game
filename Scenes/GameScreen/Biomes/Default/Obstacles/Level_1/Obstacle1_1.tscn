@@ -1,19 +1,19 @@
 [gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://Scenes/GameScreen/Biomes/Default/Obstacles/Tile.gd" type="Script" id=1]
-[ext_resource path="res://Assets/Placeholders/obstacles.png" type="Texture" id=2]
-[ext_resource path="res://Shaders/Cracking.shader" type="Shader" id=3]
+[ext_resource path="res://Shaders/Cracking.shader" type="Shader" id=2]
+[ext_resource path="res://Assets/Placeholders/obstacles.png" type="Texture" id=3]
 
 [sub_resource type="ShaderMaterial" id=1]
 resource_local_to_scene = true
-shader = ExtResource( 3 )
-shader_param/fragmentation = 0.0
+shader = ExtResource( 2 )
+shader_param/fragmentation = 1.871
 shader_param/thickness = 0.02
 shader_param/point_position = 6.2831
 
 [sub_resource type="SpriteFrames" id=2]
 animations = [ {
-"frames": [ ExtResource( 2 ) ],
+"frames": [ ExtResource( 3 ) ],
 "loop": true,
 "name": "default",
 "speed": 5.0
