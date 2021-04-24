@@ -87,6 +87,7 @@ ui_right={
 2d_physics/layer_3="projectiles"
 2d_physics/layer_4="obstacles"
 2d_physics/layer_5="tilemap"
+2d_physics/layer_6="modifiers"
 
 [rendering]
 

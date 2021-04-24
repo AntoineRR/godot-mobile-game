@@ -30,10 +30,10 @@ func _process(_delta):
 	
 	# The shake camera effect needs to be handled by the enemy/projectile when we hit it
 	# That is why we check for velocity first, a velocity close to zero means we hit an enemy/projectile
-	if velocity.y - 20 > 0:
+	#if velocity.y - 20 > 0:
 		# Shake camera when speed increases
-		var amplitude = (speed_shake_amplitude_factor*velocity.y) / input_handler.max_y_speed
-		get_node("Camera2D").shake(0.1, speed_shake_frequency, amplitude)
+		#var amplitude = (speed_shake_amplitude_factor*velocity.y) / input_handler.max_y_speed
+		#get_node("Camera2D").shake(0.1, speed_shake_frequency, amplitude)
 	
 	if position.y - GameManager.start_of_sub_level_position > GameManager.biome.get_sub_level_size():
 		emit_signal("player_finished_sub_level")
