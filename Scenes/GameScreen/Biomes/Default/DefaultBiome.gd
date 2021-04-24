@@ -9,7 +9,7 @@ var tileset_path = "res://Scenes/GameScreen/Biomes/Default/Default.tres"
 
 class Level1:
 	## Level data
-	var sub_level_size = [15000,15000,15000]
+	var sub_level_size = [5000,5000,5000]
 	var monster_speed = 300
 	var n_seconds_player_safe = 4
 	var projectile_reload_time = 5
@@ -18,7 +18,7 @@ class Level1:
 
 class Level2:
 	## Level data
-	var sub_level_size = [15000,15000,15000]
+	var sub_level_size = [5000,5000,5000]
 	var monster_speed = 500
 	var n_seconds_player_safe = 3
 	var projectile_reload_time = 3

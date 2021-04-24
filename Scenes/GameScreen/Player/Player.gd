@@ -77,8 +77,10 @@ func take_damage(duration):
 		yield(timer, "timeout")
 		stop = false
 
-func reduce_velocity(obstacle_hp):
+func reduce_velocity(obstacle_hp, allow_negative=true):
 	velocity.y -= obstacle_hp/(velocity.y/1000)
+	if not allow_negative:
+		velocity.y = max(0, velocity.y)
 
 func _on_Monster_caught_player():
 	emit_signal("player_died")

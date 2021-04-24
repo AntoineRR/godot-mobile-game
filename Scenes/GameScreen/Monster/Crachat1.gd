@@ -1,5 +1,7 @@
 extends Area2D
 
+export var crachat_hp = 300
+
 var y_speed = 1000
 
 onready var player = get_node("../Player")
@@ -10,7 +12,7 @@ func _process(delta):
 		queue_free()
 
 func _on_MonsterProjectile_body_entered(_body):
-	player.take_damage(0.5)
+	player.reduce_velocity(crachat_hp)
 	player.get_node("Camera2D").shake(0.5, 15, 8)
 	destroy()
 
