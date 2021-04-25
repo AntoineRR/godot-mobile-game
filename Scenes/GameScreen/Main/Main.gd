@@ -6,6 +6,9 @@ onready var player = get_node("Player")
 onready var monster = get_node("Monster")
 
 func _ready():
+	if GameManager.play_testing:
+		GameManager.level = GameManager.play_test_level - 1
+		GameManager.sub_level = GameManager.play_test_sub_level - 1
 	load_sub_level()
 
 # Game methods

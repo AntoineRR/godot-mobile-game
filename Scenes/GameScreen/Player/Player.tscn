@@ -93,6 +93,8 @@ one_shot = true
 wait_time = 0.1
 one_shot = true
 
+[node name="StickyDelay" type="Timer" parent="InputHandler"]
+
 [node name="Particles2D" type="Particles2D" parent="."]
 amount = 50
 lifetime = 0.5
@@ -101,3 +103,4 @@ process_material = SubResource( 7 )
 [connection signal="timeout" from="WeaponCooldown" to="." method="_on_WeaponCooldown_timeout"]
 [connection signal="timeout" from="InputHandler/TimeAtMaxSpeed" to="InputHandler" method="_on_TimeAtMaxSpeed_timeout"]
 [connection signal="timeout" from="InputHandler/WeaponActivationDelay" to="InputHandler" method="_on_WeaponActivationDelay_timeout"]
+[connection signal="timeout" from="InputHandler/StickyDelay" to="InputHandler" method="_on_StickyDelay_timeout"]

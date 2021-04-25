@@ -61,7 +61,7 @@ func _on_ProjectileReload_timeout():
 	if GameManager.level == 0:
 		proj_index = 0
 	else:
-		proj_index = 1
+		proj_index = 2
 	var projectile = projectiles[proj_index].instance()
 	var proj_speed = min_proj_speed + randi() % (max_proj_speed - min_proj_speed)
 	projectile.y_speed = proj_speed
