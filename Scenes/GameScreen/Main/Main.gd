@@ -4,11 +4,16 @@ export(PackedScene) var splash_text;
 
 onready var player = get_node("Player")
 onready var monster = get_node("Monster")
+onready var background = get_node("Background")
+onready var foreground = get_node("Foreground")
 
 func _ready():
 	if GameManager.play_testing:
 		GameManager.level = GameManager.play_test_level - 1
 		GameManager.sub_level = GameManager.play_test_sub_level - 1
+	background.setup_background()
+	foreground.setup_foreground()
+	background.load_background()
 	load_sub_level()
 
 # Game methods
@@ -27,6 +32,9 @@ func level_finished():
 		GameManager.start_of_sub_level_position += GameManager.biome.get_sub_level_size()
 		GameManager.level += 1
 		GameManager.sub_level = 0
+		
+		background.load_background()
+		
 		load_sub_level()
 		# Set the level parameters
 		player.update_parameters()

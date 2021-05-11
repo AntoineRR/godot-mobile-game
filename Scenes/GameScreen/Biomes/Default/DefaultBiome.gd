@@ -54,5 +54,13 @@ var levels = [
 func get_level():
 	return levels[GameManager.level]
 
+func get_level_size(var level = -1) -> int:
+	if (level == -1):
+		level = GameManager.level
+	var result = 0
+	for size in levels[level].sub_level_size:
+		result += size
+	return result
+
 func get_sub_level_size() -> int:
 	return levels[GameManager.level].sub_level_size[GameManager.sub_level]

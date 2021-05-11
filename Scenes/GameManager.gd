@@ -4,7 +4,7 @@ extends Node
 # GAME TEST VARIABLES #
 #######################
 
-const play_testing = true # Stick to a specific sub level
+const play_testing = false # Stick to a specific sub level
 const play_test_level = 2 # Level to play between 1 and 4
 const play_test_sub_level = 1 # Sub level to play between 1 and 3
 
