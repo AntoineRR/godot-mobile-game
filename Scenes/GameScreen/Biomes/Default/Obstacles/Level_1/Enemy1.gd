@@ -9,4 +9,9 @@ func _on_Enemy1_body_entered(body):
 		destroy()
 
 func destroy():
-	queue_free()
+	$AnimatedSprite.play("Death")
+
+
+func _on_AnimatedSprite_animation_finished():
+	if $AnimatedSprite.animation == "Death":
+		queue_free()
