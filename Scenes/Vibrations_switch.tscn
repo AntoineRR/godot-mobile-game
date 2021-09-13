@@ -1,0 +1,21 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://Assets/Font/Alkhemikal_outline.tres" type="DynamicFont" id=1]
+[ext_resource path="res://Assets/Placeholders/Icon_vibration.png" type="Texture" id=2]
+
+[node name="Vibrations_switch" type="HBoxContainer"]
+anchor_right = 1.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="TextureRect" type="TextureRect" parent="."]
+margin_right = 50.0
+margin_bottom = 108.0
+texture = ExtResource( 2 )
+
+[node name="CheckButton" type="CheckButton" parent="."]
+margin_left = 54.0
+margin_right = 130.0
+margin_bottom = 108.0
+custom_fonts/font = ExtResource( 1 )
