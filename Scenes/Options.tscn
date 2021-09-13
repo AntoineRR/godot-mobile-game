@@ -5,16 +5,16 @@
 [ext_resource path="res://Scenes/Vibrations_switch.tscn" type="PackedScene" id=3]
 [ext_resource path="res://Scenes/Sound_slider.tscn" type="PackedScene" id=4]
 
-[sub_resource type="DynamicFontData" id=1]
+[sub_resource type="DynamicFontData" id=2]
 antialiased = false
 font_path = "res://Assets/Font/Alkhemikal.ttf"
 
-[sub_resource type="DynamicFont" id=2]
+[sub_resource type="DynamicFont" id=3]
 size = 100
 outline_size = 1
 outline_color = Color( 0, 0, 0, 1 )
 use_mipmaps = true
-font_data = SubResource( 1 )
+font_data = SubResource( 2 )
 
 [node name="Options" type="Control"]
 anchor_right = 1.0
@@ -42,7 +42,7 @@ __meta__ = {
 
 [node name="Label" type="Label" parent="Menu"]
 margin_right = 440.0
-margin_bottom = 100.0
+margin_bottom = 106.0
 custom_fonts/font = ExtResource( 1 )
 custom_colors/font_color = Color( 1, 1, 1, 1 )
 custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
@@ -52,7 +52,7 @@ valign = 1
 uppercase = true
 
 [node name="Center Row" type="HBoxContainer" parent="Menu"]
-margin_top = 104.0
+margin_top = 110.0
 margin_right = 440.0
 margin_bottom = 860.0
 size_flags_vertical = 3
@@ -61,43 +61,45 @@ alignment = 1
 [node name="Boutons" type="VBoxContainer" parent="Menu/Center Row"]
 margin_left = 79.0
 margin_right = 361.0
-margin_bottom = 756.0
+margin_bottom = 750.0
+custom_constants/separation = 20
 alignment = 1
 
 [node name="Music_slider" parent="Menu/Center Row/Boutons" instance=ExtResource( 2 )]
 anchor_right = 0.0
-anchor_bottom = 0.0
-margin_top = 160.0
+margin_top = 122.0
 margin_right = 282.0
-margin_bottom = 210.0
+margin_bottom = 172.0
+size_flags_vertical = 1
 
 [node name="Sfx_slider" parent="Menu/Center Row/Boutons" instance=ExtResource( 4 )]
 anchor_right = 0.0
-anchor_bottom = 0.0
-margin_top = 214.0
+margin_top = 192.0
 margin_right = 282.0
-margin_bottom = 264.0
+margin_bottom = 242.0
+size_flags_vertical = 0
 
 [node name="Vibrations_switch" parent="Menu/Center Row/Boutons" instance=ExtResource( 3 )]
 anchor_right = 0.0
-margin_top = 268.0
+margin_top = 262.0
 margin_right = 282.0
 margin_bottom = 376.0
 
 [node name="Credits" type="Button" parent="Menu/Center Row/Boutons"]
-margin_top = 380.0
+margin_top = 396.0
 margin_right = 282.0
-margin_bottom = 486.0
+margin_bottom = 502.0
 size_flags_horizontal = 0
 size_flags_vertical = 0
-custom_fonts/font = SubResource( 2 )
+custom_fonts/font = SubResource( 3 )
 text = "Credits"
+align = 0
 
 [node name="Return" type="Button" parent="Menu/Center Row/Boutons"]
-margin_top = 490.0
+margin_top = 522.0
 margin_right = 269.0
-margin_bottom = 596.0
+margin_bottom = 628.0
 size_flags_horizontal = 0
 size_flags_vertical = 0
-custom_fonts/font = SubResource( 2 )
+custom_fonts/font = SubResource( 3 )
 text = "Return"
