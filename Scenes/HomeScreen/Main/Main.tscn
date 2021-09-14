@@ -1,8 +1,10 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://Scenes/HomeScreen/Main/Main.gd" type="Script" id=1]
 [ext_resource path="res://Assets/Placeholders/Noto_Sans/NotoSans-Regular.ttf" type="DynamicFontData" id=2]
 [ext_resource path="res://Assets/Font/Alkhemikal_outline.tres" type="DynamicFont" id=3]
+[ext_resource path="res://Assets/Placeholders/icon_options_pressed.png" type="Texture" id=4]
+[ext_resource path="res://Assets/Placeholders/icon_options_normal.png" type="Texture" id=5]
 
 [sub_resource type="DynamicFont" id=1]
 size = 30
@@ -24,45 +26,58 @@ __meta__ = {
 [node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer"]
 anchor_right = 1.0
 anchor_bottom = 1.0
+margin_left = 19.0
+margin_top = 22.0
+margin_right = -15.0
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="Top" type="MarginContainer" parent="CanvasLayer/VBoxContainer"]
-margin_right = 540.0
-margin_bottom = 62.0
+margin_right = 506.0
+margin_bottom = 100.0
 custom_constants/margin_top = 10
 custom_constants/margin_bottom = 10
 
 [node name="Label" type="Label" parent="CanvasLayer/VBoxContainer/Top"]
-margin_top = 10.0
-margin_right = 540.0
-margin_bottom = 52.0
+margin_top = 29.0
+margin_right = 506.0
+margin_bottom = 71.0
 custom_fonts/font = SubResource( 1 )
 text = "HOME"
 align = 1
 
+[node name="Options" type="TextureButton" parent="CanvasLayer/VBoxContainer/Top"]
+margin_left = 426.0
+margin_top = 10.0
+margin_right = 506.0
+margin_bottom = 90.0
+size_flags_horizontal = 8
+size_flags_vertical = 0
+texture_normal = ExtResource( 5 )
+texture_pressed = ExtResource( 4 )
+
 [node name="Middle" type="MarginContainer" parent="CanvasLayer/VBoxContainer"]
-margin_top = 66.0
-margin_right = 540.0
-margin_bottom = 682.0
+margin_top = 104.0
+margin_right = 506.0
+margin_bottom = 660.0
 size_flags_vertical = 3
 
 [node name="Bottom" type="VBoxContainer" parent="CanvasLayer/VBoxContainer"]
-margin_top = 686.0
-margin_right = 540.0
-margin_bottom = 960.0
+margin_top = 664.0
+margin_right = 506.0
+margin_bottom = 938.0
 custom_constants/separation = 20
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="MarginContainer2" type="MarginContainer" parent="CanvasLayer/VBoxContainer/Bottom"]
-margin_right = 540.0
+margin_right = 506.0
 margin_bottom = 112.0
 
-[node name="Button" type="Button" parent="CanvasLayer/VBoxContainer/Bottom/MarginContainer2"]
-margin_right = 540.0
+[node name="Credits_Button" type="Button" parent="CanvasLayer/VBoxContainer/Bottom/MarginContainer2"]
+margin_right = 506.0
 margin_bottom = 112.0
 size_flags_horizontal = 5
 custom_fonts/font = ExtResource( 3 )
@@ -70,7 +85,7 @@ text = "Credit"
 
 [node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/VBoxContainer/Bottom"]
 margin_top = 132.0
-margin_right = 540.0
+margin_right = 506.0
 margin_bottom = 274.0
 custom_constants/margin_right = 30
 custom_constants/margin_top = 5
@@ -80,11 +95,13 @@ custom_constants/margin_bottom = 25
 [node name="Start" type="Button" parent="CanvasLayer/VBoxContainer/Bottom/MarginContainer"]
 margin_left = 30.0
 margin_top = 5.0
-margin_right = 510.0
+margin_right = 476.0
 margin_bottom = 117.0
 custom_fonts/font = ExtResource( 3 )
 text = "Start"
 __meta__ = {
 "_edit_use_anchors_": false
 }
+[connection signal="pressed" from="CanvasLayer/VBoxContainer/Top/Options" to="." method="_on_Options_pressed"]
+[connection signal="pressed" from="CanvasLayer/VBoxContainer/Bottom/MarginContainer2/Credits_Button" to="." method="_on_Credits_Button_pressed"]
 [connection signal="pressed" from="CanvasLayer/VBoxContainer/Bottom/MarginContainer/Start" to="." method="_on_Start_pressed"]

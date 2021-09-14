@@ -1,0 +1,134 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://Assets/Font/Alkhemikal_outline.tres" type="DynamicFont" id=1]
+[ext_resource path="res://Scenes/HomeScreen/Credits.gd" type="Script" id=2]
+
+[node name="Control" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ColorRect" type="ColorRect" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color( 0.141176, 0.141176, 0.141176, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 30.0
+margin_top = 30.0
+margin_right = -30.0
+margin_bottom = -30.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="VBoxContainer"]
+margin_right = 480.0
+margin_bottom = 106.0
+custom_fonts/font = ExtResource( 1 )
+custom_colors/font_color = Color( 0.956863, 0.905882, 0.478431, 1 )
+text = "Created By"
+align = 1
+valign = 1
+
+[node name="MarginContainer2" type="MarginContainer" parent="VBoxContainer"]
+margin_top = 110.0
+margin_right = 480.0
+margin_bottom = 189.0
+grow_vertical = 0
+size_flags_vertical = 3
+
+[node name="Antoine" type="Label" parent="VBoxContainer"]
+margin_top = 193.0
+margin_right = 480.0
+margin_bottom = 299.0
+custom_fonts/font = ExtResource( 1 )
+text = "Antoine"
+align = 1
+
+[node name="Antoine_2" type="Label" parent="VBoxContainer"]
+margin_top = 303.0
+margin_right = 480.0
+margin_bottom = 317.0
+text = "Dark Mage of the order of the Code"
+align = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Charles" type="Label" parent="VBoxContainer"]
+margin_top = 321.0
+margin_right = 480.0
+margin_bottom = 427.0
+custom_fonts/font = ExtResource( 1 )
+text = "Charles"
+align = 1
+
+[node name="Charles2" type="Label" parent="VBoxContainer"]
+margin_top = 431.0
+margin_right = 480.0
+margin_bottom = 445.0
+text = "Z brush God"
+align = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Evan" type="Label" parent="VBoxContainer"]
+margin_top = 449.0
+margin_right = 480.0
+margin_bottom = 555.0
+custom_fonts/font = ExtResource( 1 )
+text = "Evan"
+align = 1
+
+[node name="Evan2" type="Label" parent="VBoxContainer"]
+margin_top = 559.0
+margin_right = 480.0
+margin_bottom = 573.0
+text = "Pixel pusher & Whiniest Bitch"
+align = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Hadrien" type="Label" parent="VBoxContainer"]
+margin_top = 577.0
+margin_right = 480.0
+margin_bottom = 683.0
+custom_fonts/font = ExtResource( 1 )
+text = "Hadrien"
+align = 1
+
+[node name="Hadrien2" type="Label" parent="VBoxContainer"]
+margin_top = 687.0
+margin_right = 480.0
+margin_bottom = 701.0
+text = "Lvl 69 Bard"
+align = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="MarginContainer" type="MarginContainer" parent="VBoxContainer"]
+margin_top = 705.0
+margin_right = 480.0
+margin_bottom = 784.0
+grow_vertical = 0
+size_flags_vertical = 3
+
+[node name="MainMenu_Button" type="Button" parent="VBoxContainer"]
+margin_top = 788.0
+margin_right = 480.0
+margin_bottom = 900.0
+custom_fonts/font = ExtResource( 1 )
+text = "Main Menu"
+script = ExtResource( 2 )
+[connection signal="pressed" from="VBoxContainer/MainMenu_Button" to="VBoxContainer/MainMenu_Button" method="_on_MainMenu_Button_pressed"]
