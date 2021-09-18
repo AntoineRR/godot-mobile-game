@@ -16,6 +16,8 @@ const play_test_sub_level = 1 # Sub level to play between 1 and 3
 const home_scene_path = "res://Scenes/HomeScreen/Main/Main.tscn"
 const game_scene_path = "res://Scenes/GameScreen/Main/Main.tscn"
 const shop_scene_path = "res://Scenes/ShopScreen/Main/Main.tscn"
+const credits_scene_path = "res://Scenes/HomeScreen/Credits.tscn"
+const options_scene_path = "res://Scenes/OptionsScreen/Options.tscn"
 
 # Save path
 const save_path = "user://user.save"

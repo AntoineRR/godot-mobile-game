@@ -95,6 +95,6 @@ shape = SubResource( 10 )
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
 position = Vector2( -1.68369, -5.19139 )
 frames = SubResource( 15 )
-frame = 1
+frame = 3
 playing = true
 [connection signal="body_entered" from="." to="." method="_on_MonsterProjectile_body_entered"]

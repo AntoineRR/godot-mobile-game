@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=2]
+[gd_scene load_steps=15 format=2]
 
 [ext_resource path="res://Scenes/GameScreen/Player/Player.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Scenes/GameScreen/Background/Background.tscn" type="PackedScene" id=2]
@@ -9,6 +9,10 @@
 [ext_resource path="res://Scenes/GameScreen/Weapons/Circular.tscn" type="PackedScene" id=7]
 [ext_resource path="res://Scenes/GameScreen/Main/TextSplash.tscn" type="PackedScene" id=8]
 [ext_resource path="res://Scenes/GameScreen/Foreground/Foreground.tscn" type="PackedScene" id=9]
+[ext_resource path="res://Assets/Placeholders/Icon_Pause.png" type="Texture" id=10]
+[ext_resource path="res://Assets/Placeholders/Pause_background.png" type="Texture" id=11]
+[ext_resource path="res://Assets/Font/Alkhemikal_outline.tres" type="DynamicFont" id=12]
+[ext_resource path="res://Assets/Placeholders/coin.png" type="Texture" id=13]
 
 [sub_resource type="DynamicFont" id=1]
 size = 30
@@ -37,24 +41,24 @@ position = Vector2( 270, -680 )
 [node name="GUI" type="CanvasLayer" parent="."]
 pause_mode = 2
 
-[node name="Pause" type="Button" parent="GUI"]
-anchor_top = 1.0
-anchor_bottom = 1.0
-margin_left = 20.0
-margin_top = -62.0
-margin_right = 88.0
-margin_bottom = -20.0
-custom_fonts/font = SubResource( 1 )
-text = "Pause"
+[node name="Pause" type="TextureButton" parent="GUI"]
+anchor_left = 1.0
+anchor_right = 1.0
+margin_left = -171.0
+margin_bottom = 126.0
+size_flags_horizontal = 0
+size_flags_vertical = 0
+action_mode = 0
+texture_normal = ExtResource( 10 )
+expand = true
+stretch_mode = 3
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="Popup" type="Popup" parent="GUI"]
-anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_top = -130.0
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -62,43 +66,115 @@ __meta__ = {
 [node name="ColorRect" type="ColorRect" parent="GUI/Popup"]
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_top = -41.0
-color = Color( 0.298039, 0.298039, 0.298039, 1 )
+color = Color( 0, 0, 0, 0.458824 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Resume" type="Button" parent="GUI/Popup/ColorRect"]
+[node name="TextureRect" type="TextureRect" parent="GUI/Popup"]
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_top = -470.0
+texture = ExtResource( 11 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="pause" type="Label" parent="GUI/Popup"]
+anchor_right = 1.0
+margin_bottom = 251.0
+custom_fonts/font = ExtResource( 12 )
+text = "Pause"
+align = 1
+valign = 1
+uppercase = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="coin" type="TextureRect" parent="GUI/Popup"]
 anchor_left = 0.5
 anchor_top = 1.0
 anchor_right = 0.5
 anchor_bottom = 1.0
-margin_left = -62.0
-margin_top = -148.0
-margin_right = 64.0
-margin_bottom = -100.0
+margin_left = -126.836
+margin_top = -339.996
+margin_right = -46.8364
+margin_bottom = -259.996
+texture = ExtResource( 13 )
+expand = true
+stretch_mode = 5
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="GUI/Popup"]
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+margin_left = -37.9597
+margin_top = -351.593
+margin_right = 121.04
+margin_bottom = -245.593
+custom_fonts/font = ExtResource( 12 )
+text = "000"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Options" type="Button" parent="GUI/Popup"]
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+margin_left = -107.0
+margin_top = -156.0
+margin_right = 102.0
+margin_bottom = -102.0
+text = "Options"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Resume" type="Button" parent="GUI/Popup"]
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+margin_left = -108.891
+margin_top = -90.3821
+margin_right = 107.109
+margin_bottom = -18.3821
 custom_fonts/font = SubResource( 1 )
 text = "Resume"
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
-[node name="Home" type="Button" parent="GUI/Popup/ColorRect"]
+[node name="Home" type="Button" parent="GUI/Popup"]
 anchor_left = 0.5
 anchor_top = 1.0
 anchor_right = 0.5
 anchor_bottom = 1.0
-margin_left = -48.0
-margin_top = -76.0
-margin_right = 49.0
-margin_bottom = -28.0
+margin_left = -109.673
+margin_top = -222.491
+margin_right = 104.327
+margin_bottom = -174.491
 custom_fonts/font = SubResource( 1 )
 text = "Home"
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="InvicibilityFrames" type="Timer" parent="."]
 wait_time = 0.5
 one_shot = true
-
 [connection signal="player_died" from="Player" to="." method="end_game"]
 [connection signal="player_finished_sub_level" from="Player" to="." method="sub_level_finished"]
 [connection signal="caught_player" from="Monster" to="Player" method="_on_Monster_caught_player"]
 [connection signal="pressed" from="GUI/Pause" to="." method="_on_Pause_pressed"]
-[connection signal="pressed" from="GUI/Popup/ColorRect/Resume" to="." method="_on_Resume_pressed"]
-[connection signal="pressed" from="GUI/Popup/ColorRect/Home" to="." method="_on_Home_pressed"]
+[connection signal="pressed" from="GUI/Popup/Options" to="." method="_on_Options_pressed"]
+[connection signal="pressed" from="GUI/Popup/Resume" to="." method="_on_Resume_pressed"]
+[connection signal="pressed" from="GUI/Popup/Home" to="." method="_on_Home_pressed"]
