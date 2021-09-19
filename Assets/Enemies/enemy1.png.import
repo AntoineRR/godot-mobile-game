@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/6.png-2cfa854b61e8acd2ed1318fe6ab2eea2.stex"
+path="res://.import/enemy1.png-80d62117404b9cf9b2b5a3a7e8727767.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/Backgrounds/6.png"
-dest_files=[ "res://.import/6.png-2cfa854b61e8acd2ed1318fe6ab2eea2.stex" ]
+source_file="res://Assets/Enemies/enemy1.png"
+dest_files=[ "res://.import/enemy1.png-80d62117404b9cf9b2b5a3a7e8727767.stex" ]
 
 [params]
 
@@ -20,7 +20,7 @@ compress/hdr_mode=0
 compress/bptc_ldr=0
 compress/normal_map=0
 flags/repeat=0
-flags/filter=true
+flags/filter=false
 flags/mipmaps=false
 flags/anisotropic=false
 flags/srgb=2
@@ -30,5 +30,5 @@ process/HDR_as_SRGB=false
 process/invert_color=false
 stream=false
 size_limit=0
-detect_3d=true
+detect_3d=false
 svg/scale=1.0

@@ -52,7 +52,8 @@ func get_new_position(delta) -> Vector2:
 	return pos
 
 func check_if_player_caught():
-	if position.y + current_height/2 >= player.position.y:
+	# Temporary, will change later
+	if position.y + current_height/4 >= player.position.y:
 		emit_signal("caught_player")
 
 

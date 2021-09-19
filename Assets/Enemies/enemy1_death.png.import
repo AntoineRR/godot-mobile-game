@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/8.png-8af3123fed12e1a7444a0162e60390fe.stex"
+path="res://.import/enemy1_death.png-8b90ef556b4243c26599d8cf62c9324e.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/Backgrounds/8.png"
-dest_files=[ "res://.import/8.png-8af3123fed12e1a7444a0162e60390fe.stex" ]
+source_file="res://Assets/Enemies/enemy1_death.png"
+dest_files=[ "res://.import/enemy1_death.png-8b90ef556b4243c26599d8cf62c9324e.stex" ]
 
 [params]
 
@@ -20,7 +20,7 @@ compress/hdr_mode=0
 compress/bptc_ldr=0
 compress/normal_map=0
 flags/repeat=0
-flags/filter=true
+flags/filter=false
 flags/mipmaps=false
 flags/anisotropic=false
 flags/srgb=2
@@ -30,5 +30,5 @@ process/HDR_as_SRGB=false
 process/invert_color=false
 stream=false
 size_limit=0
-detect_3d=true
+detect_3d=false
 svg/scale=1.0

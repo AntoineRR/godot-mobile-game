@@ -94,8 +94,7 @@ func load_save():
 	if not save_file.file_exists(save_path):
 		return
 
-	# Load the file line by line and process that dictionary to restore
-	# the object it represents.
+	# Load the file line by line and process that dictionary to restore the object it represents.
 	save_file.open_encrypted_with_pass(save_path, File.READ, OS.get_unique_id())
 	while save_file.get_position() < save_file.get_len():
 		# Get the saved dictionary from the next line in the save file
@@ -106,10 +105,3 @@ func load_save():
 			UserData.set(i, node_data[i])
 
 	save_file.close()
-
-
-
-
-
-
-

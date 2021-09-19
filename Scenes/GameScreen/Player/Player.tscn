@@ -4,7 +4,6 @@
 [ext_resource path="res://Scenes/GameScreen/Player/Player.gd" type="Script" id=2]
 [ext_resource path="res://Scenes/GameScreen/Player/Camera2D.gd" type="Script" id=3]
 [ext_resource path="res://Scenes/GameScreen/Player/inputHandler.gd" type="Script" id=4]
-[ext_resource path="res://Assets/Lightmaps/PERSO_lightmap_test.png" type="Texture" id=5]
 
 [sub_resource type="Curve" id=1]
 min_value = -360.0
@@ -128,7 +127,6 @@ process_material = SubResource( 7 )
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
 frames = SubResource( 16 )
 animation = "idle"
-frame = 4
 playing = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
@@ -176,6 +174,7 @@ lifetime = 1.31
 preprocess = 1.0
 speed_scale = 1.75
 process_material = SubResource( 20 )
+
 [connection signal="timeout" from="WeaponCooldown" to="." method="_on_WeaponCooldown_timeout"]
 [connection signal="timeout" from="InputHandler/TimeAtMaxSpeed" to="InputHandler" method="_on_TimeAtMaxSpeed_timeout"]
 [connection signal="timeout" from="InputHandler/WeaponActivationDelay" to="InputHandler" method="_on_WeaponActivationDelay_timeout"]

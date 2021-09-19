@@ -26,4 +26,5 @@ projectiles = [ ExtResource( 3 ), ExtResource( 4 ), ExtResource( 5 ) ]
 pause_mode = 1
 wait_time = 3.0
 autostart = true
+
 [connection signal="timeout" from="ProjectileReload" to="." method="_on_ProjectileReload_timeout"]
