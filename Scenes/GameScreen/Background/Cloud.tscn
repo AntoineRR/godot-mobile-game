@@ -161,5 +161,4 @@ shader_param/color3 = Color( 0.792157, 0.721569, 0.435294, 1 )
 
 [node name="Sprite" type="Sprite"]
 material = SubResource( 2 )
-position = Vector2( 0, 249.609 )
 texture = ExtResource( 1 )

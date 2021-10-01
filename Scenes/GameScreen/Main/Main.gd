@@ -68,6 +68,6 @@ func _on_Home_pressed():
 	get_tree().paused = false
 	GameManager.change_scene(GameManager.home_scene_path)
 
-
 func _on_Options_pressed():
+	get_tree().paused = false
 	GameManager.change_scene(GameManager.options_scene_path)

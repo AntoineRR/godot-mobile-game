@@ -1,9 +1,9 @@
 [gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://Assets/Font/Alkhemikal_outline.tres" type="DynamicFont" id=1]
-[ext_resource path="res://Scenes/OptionsScreen/Music_slider.tscn" type="PackedScene" id=2]
-[ext_resource path="res://Scenes/OptionsScreen/Vibrations_switch.tscn" type="PackedScene" id=3]
-[ext_resource path="res://Scenes/OptionsScreen/Sound_slider.tscn" type="PackedScene" id=4]
+[ext_resource path="res://Scenes/OptionsScreen/MusicSlider.tscn" type="PackedScene" id=2]
+[ext_resource path="res://Scenes/OptionsScreen/VibrationSwitch.tscn" type="PackedScene" id=3]
+[ext_resource path="res://Scenes/OptionsScreen/SoundSlider.tscn" type="PackedScene" id=4]
 [ext_resource path="res://Scenes/OptionsScreen/Options.gd" type="Script" id=5]
 
 [sub_resource type="DynamicFontData" id=1]
@@ -65,33 +65,33 @@ margin_bottom = 750.0
 custom_constants/separation = 20
 alignment = 1
 
-[node name="Music_slider" parent="Menu/Center Row/Boutons" instance=ExtResource( 2 )]
+[node name="MusicSlider" parent="Menu/Center Row/Boutons" instance=ExtResource( 2 )]
 anchor_right = 0.0
-margin_top = 185.0
+margin_top = 217.0
 margin_right = 444.0
-margin_bottom = 235.0
+margin_bottom = 267.0
 size_flags_vertical = 1
 
-[node name="Sfx_slider" parent="Menu/Center Row/Boutons" instance=ExtResource( 4 )]
+[node name="SfxSlider" parent="Menu/Center Row/Boutons" instance=ExtResource( 4 )]
 anchor_right = 0.0
-margin_top = 255.0
+margin_top = 287.0
 margin_right = 444.0
-margin_bottom = 305.0
+margin_bottom = 337.0
 size_flags_vertical = 0
 
-[node name="Vibrations_switch" parent="Menu/Center Row/Boutons" instance=ExtResource( 3 )]
-anchor_right = 0.0
-margin_top = 325.0
+[node name="VibrationSwitch" parent="Menu/Center Row/Boutons" instance=ExtResource( 3 )]
+margin_top = 357.0
 margin_right = 444.0
-margin_bottom = 439.0
+margin_bottom = 407.0
 
 [node name="Main Menu" type="Button" parent="Menu/Center Row/Boutons"]
-margin_top = 459.0
+margin_top = 427.0
 margin_right = 444.0
-margin_bottom = 565.0
+margin_bottom = 533.0
 size_flags_horizontal = 0
 size_flags_vertical = 0
 custom_fonts/font = SubResource( 2 )
 text = "Main Menu"
 script = ExtResource( 5 )
+
 [connection signal="pressed" from="Menu/Center Row/Boutons/Main Menu" to="Menu/Center Row/Boutons/Main Menu" method="_on_Main_Menu_pressed"]
