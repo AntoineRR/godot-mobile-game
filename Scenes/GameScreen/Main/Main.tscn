@@ -28,15 +28,18 @@ position = Vector2( 270, 0 )
 weapon = ExtResource( 7 )
 
 [node name="Background" parent="." instance=ExtResource( 2 )]
+position = Vector2( -1.78174, 0 )
 
 [node name="Foreground" parent="." instance=ExtResource( 9 )]
+visible = false
 
 [node name="TileMap" parent="." instance=ExtResource( 3 )]
 collision_layer = 16
 
 [node name="Monster" parent="." instance=ExtResource( 6 )]
 pause_mode = 1
-position = Vector2( 270, -680 )
+position = Vector2( 273.284, -375.059 )
+frame = 1
 
 [node name="GUI" type="CanvasLayer" parent="."]
 pause_mode = 2

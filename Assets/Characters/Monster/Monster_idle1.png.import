@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/Monstre_clean.png-e158596346a65471e267ac57f234fd8e.stex"
+path="res://.import/Monster_idle1.png-397020395072615068218367fe3ce135.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/Characters/Monstre_clean.png"
-dest_files=[ "res://.import/Monstre_clean.png-e158596346a65471e267ac57f234fd8e.stex" ]
+source_file="res://Assets/Characters/Monster/Monster_idle1.png"
+dest_files=[ "res://.import/Monster_idle1.png-397020395072615068218367fe3ce135.stex" ]
 
 [params]
 
