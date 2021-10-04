@@ -47,10 +47,6 @@ config/icon="res://icon.png"
 GameManager="*res://Scenes/GameManager.tscn"
 UserData="*res://Scenes/UserData.tscn"
 
-[debug]
-
-settings/fps/force_fps=60
-
 [display]
 
 window/size/width=540
@@ -94,6 +90,7 @@ ui_right={
 quality/intended_usage/framebuffer_allocation=0
 quality/intended_usage/framebuffer_allocation.mobile=0
 2d/snapping/use_gpu_pixel_snap=true
+vram_compression/import_etc=true
 environment/default_environment="res://default_env.tres"
 quality/dynamic_fonts/use_oversampling=false
 quality/2d/use_pixel_snap=true

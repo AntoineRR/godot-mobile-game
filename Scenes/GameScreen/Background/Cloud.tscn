@@ -9,6 +9,7 @@ uniform int pixel_amount;
 uniform float cloudscale:hint_range(0.0, 5.0);
 uniform float randomness:hint_range(0.0,50000.0);
 uniform float speed:hint_range(-1.0, 1.0);
+uniform int OCTAVES:hint_range(1,10);
 
 uniform float threshold1:hint_range(0.0, 1.0);
 uniform vec4 color1:hint_color;
@@ -37,16 +38,6 @@ float noise( in vec2 p ) {
     return dot(n, vec3(70.0));	
 }
 
-float fbm(vec2 n) {
-	float total = 0.0, amplitude = 0.1;
-	for (int i = 0; i < 7; i++) {
-		total += noise(n) * amplitude;
-		n = m * n;
-		amplitude *= 0.4;
-	}
-	return total;
-}
-
 vec4 mask(vec2 uvPos) {
 	vec4 mask = vec4(1.0,1.0,1.0,0);
 	if (uvPos.y < 0.5) {
@@ -56,6 +47,16 @@ vec4 mask(vec2 uvPos) {
 		mask.a = clamp(mask.a + (1.0-(uvPos.y-0.5)*2.0)*2.0, 0.0, 1.0);
 	}
 	return mask;
+}
+
+float fbm(vec2 uv, float initial_amplitude, float amplitude_factor, float time) {
+	float total = 0.0, amplitude = initial_amplitude;
+	for (int i = 0; i < OCTAVES; i++) {
+		total += abs(noise(uv + vec2(sin(time))) * amplitude);
+		uv = m * uv;
+		amplitude *= amplitude_factor;
+	}
+	return total;
 }
 
 vec4 apply_threshold(vec4 col, vec2 uv) {
@@ -84,62 +85,15 @@ void fragment() {
 	vec2 pixels = vec2(float(pixel_amount)) * ratio;
 	vec2 grid_uv = round(UV * pixels) * ratio / pixels;
     float time = TIME * speed;
-    float q = fbm(grid_uv * cloudscale * 0.5);
+    float q = cloudscale;
     
     //ridged noise shape
-	float r = 0.0;
 	vec2 uv = grid_uv * cloudscale;
-    uv -= q - time;
-    float weight = 0.8;
-    for (int i=0; i<8; i++){
-		r += abs(weight*noise( uv ));
-        uv = m*uv + time;
-		weight *= 0.7;
-    }
+    uv.x -= q - time;
+    float r = fbm(uv, 0.8, 0.7, time);
     
-    //noise shape
-	float f = 0.0;
-	uv = grid_uv * cloudscale;
-    uv -= q - time;
-    weight = 0.7;
-    for (int i=0; i<8; i++){
-		f += weight*noise( uv );
-        uv = m*uv + time;
-		weight *= 0.6;
-    }
-    
-    f *= r + f;
-	
-	//noise colour
-    float c = 0.0;
-    uv = grid_uv * cloudscale * 2.0;
-    time = TIME * speed * 2.0;
-    uv -= q - time;
-    weight = 0.4;
-    for (int i=0; i<7; i++){
-		c += weight*noise( uv );
-        uv = m*uv + time;
-		weight *= 0.6;
-    }
-    
-    //noise ridge colour
-    float c1 = 0.0;
-    uv = grid_uv * cloudscale * 3.0;
-    time = TIME * speed * 3.0;
-    uv -= q - time;
-    weight = 0.4;
-    for (int i=0; i<7; i++){
-		c1 += abs(weight*noise( uv ));
-        uv = m*uv + time;
-		weight *= 0.6;
-    }
-	
-    c += c1;
-	
-	vec4 col = vec4(f) * mask(grid_uv) + 0.5*mask(grid_uv);
+	vec4 col = vec4(r*r) * mask(grid_uv) + 0.5*mask(grid_uv);
 	col = apply_threshold(col, grid_uv);
-
-	col = col + 0.05*vec4(c)*col.a;
 
 	COLOR = col;
 	//COLOR = mask(grid_uv);
@@ -148,15 +102,16 @@ void fragment() {
 
 [sub_resource type="ShaderMaterial" id=2]
 shader = SubResource( 1 )
-shader_param/pixel_amount = 120
-shader_param/cloudscale = 1.319
-shader_param/randomness = 29473.7
-shader_param/speed = -0.095
-shader_param/threshold1 = 0.463
+shader_param/pixel_amount = 540
+shader_param/cloudscale = 1.213
+shader_param/randomness = 27368.4
+shader_param/speed = -0.074
+shader_param/OCTAVES = 7
+shader_param/threshold1 = 0.758
 shader_param/color1 = Color( 0.227451, 0.184314, 0.0823529, 1 )
-shader_param/threshold2 = 0.935
+shader_param/threshold2 = 1.251
 shader_param/color2 = Color( 0.545098, 0.427451, 0.196078, 1 )
-shader_param/threshold3 = 1.84
+shader_param/threshold3 = 1.882
 shader_param/color3 = Color( 0.792157, 0.721569, 0.435294, 1 )
 
 [node name="Sprite" type="Sprite"]

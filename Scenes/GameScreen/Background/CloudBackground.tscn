@@ -8,6 +8,7 @@ code = "shader_type canvas_item;
 uniform int pixel_amount;
 uniform float cloudscale:hint_range(0.0, 5.0);
 uniform float speed:hint_range(-0.5, 0.5);
+uniform int OCTAVES:hint_range(1, 10);
 
 uniform vec4 color1:hint_color;
 uniform float threshold2:hint_range(0.0, 1.0);
@@ -41,12 +42,12 @@ float noise( in vec2 p ) {
     return dot(n, vec3(70.0));	
 }
 
-float fbm(vec2 n) {
-	float total = 0.0, amplitude = 0.1;
-	for (int i = 0; i < 7; i++) {
-		total += noise(n) * amplitude;
-		n = m * n;
-		amplitude *= 0.4;
+float fbm(vec2 uv, float initial_amplitude, float amplitude_factor) {
+	float total = 0.0, amplitude = initial_amplitude;
+	for (int i = 0; i < OCTAVES; i++) {
+		total += abs(noise(uv) * amplitude);
+		uv = m * uv;
+		amplitude *= amplitude_factor;
 	}
 	return total;
 }
@@ -87,34 +88,14 @@ void fragment() {
 	vec2 pixels = vec2(float(pixel_amount)) * ratio;
 	vec2 grid_uv = round(UV * pixels) * ratio / pixels;
     float time = TIME * speed;
-    float q = fbm(grid_uv * cloudscale * 0.5);
+    float q = cloudscale;
     
     //ridged noise shape
-	float r = 0.0;
 	vec2 uv = grid_uv * cloudscale;
     uv.y -= q - time;
-    float weight = 0.8;
-    for (int i=0; i<8; i++){
-		r += abs(weight*noise( uv ));
-        uv = m*uv;
-		weight *= 0.7;
-    }
+    float r = fbm(uv, 0.8, 0.7);
     
-    //noise shape
-	float f = 0.0;
-	uv = grid_uv;
-	uv *= cloudscale;
-    uv.y -= q - time;
-    weight = 0.7;
-    for (int i=0; i<8; i++){
-		f += weight*noise( uv );
-        uv = m*uv;
-		weight *= 0.6;
-    }
-    
-    f *= r + f;
-	
-	vec4 col = 0.2 * vec4(f) + 1.0 - UV.y;
+	vec4 col = 0.2 * vec4(r*r) + 1.0 - UV.y;
 	col = apply_threshold(col, UV);
 	
 	COLOR = col;
@@ -122,9 +103,10 @@ void fragment() {
 
 [sub_resource type="ShaderMaterial" id=2]
 shader = SubResource( 1 )
-shader_param/pixel_amount = 150
-shader_param/cloudscale = 2.843
+shader_param/pixel_amount = 540
+shader_param/cloudscale = 1.738
 shader_param/speed = -0.299
+shader_param/OCTAVES = 7
 shader_param/color1 = Color( 0.14902, 0.109804, 0.0235294, 1 )
 shader_param/threshold2 = 0.242
 shader_param/color2 = Color( 0.219608, 0.137255, 0.0470588, 1 )

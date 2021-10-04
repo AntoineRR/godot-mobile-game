@@ -8,6 +8,9 @@ const play_testing = false # Stick to a specific sub level
 const play_test_level = 2 # Level to play between 1 and 4
 const play_test_sub_level = 1 # Sub level to play between 1 and 3
 
+const display_fps = true # Shows the fps on the top left corner
+export (PackedScene) var fps_counter
+
 #######################
 
 ### Constants ###
@@ -28,6 +31,9 @@ const save_path = "user://user.save"
 var current_screen = ""
 var previous_screen = ""
 
+# Used to change scene
+var current_scene
+
 # Biomes
 var biomes = {
 	0: DefaultBiome.new()
@@ -46,8 +52,13 @@ var os_name = OS.get_name()
 
 func _ready():
 	current_screen = home_scene_path
+	var root = get_tree().get_root()
+	current_scene = root.get_child(root.get_child_count() - 1)
 	load_save()
 	randomize()
+	
+	if display_fps:
+		load_fps_counter()
 
 # === Custom methods ===
 
@@ -58,7 +69,6 @@ func change_scene(new_scene_path):
 	
 	# Remove previous scene
 	var root = get_tree().get_root()
-	var current_scene = root.get_child(root.get_child_count() - 1)
 	root.call_deferred("remove_child",current_scene)
 	current_scene.call_deferred("free")
 
@@ -66,6 +76,7 @@ func change_scene(new_scene_path):
 	var next_scene_resource = load(new_scene_path)
 	var next_scene = next_scene_resource.instance()
 	root.add_child(next_scene)
+	current_scene = next_scene
 
 func save_game():
 	var nodes_to_save = get_tree().get_nodes_in_group("ToSave")
@@ -105,3 +116,7 @@ func load_save():
 			UserData.set(i, node_data[i])
 
 	save_file.close()
+
+func load_fps_counter():
+	var counter = fps_counter.instance()
+	get_tree().get_root().call_deferred("add_child",counter)
