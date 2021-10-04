@@ -14,11 +14,6 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://Scenes/GameScreen/Biomes/Default/DefaultBiome.gd"
 }, {
-"base": "",
-"class": "GitAPI",
-"language": "NativeScript",
-"path": "res://git_api.gdns"
-}, {
 "base": "Node2D",
 "class": "InputHandler",
 "language": "GDScript",
@@ -31,7 +26,6 @@ _global_script_classes=[ {
 } ]
 _global_script_class_icons={
 "DefaultBiome": "",
-"GitAPI": "",
 "InputHandler": "",
 "SegmentArea": ""
 }
@@ -57,7 +51,7 @@ window/stretch/aspect="keep_width"
 
 [gdnative]
 
-singletons=[ "res://git_api.gdnlib" ]
+singletons=[  ]
 
 [input]
 
