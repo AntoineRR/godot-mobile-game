@@ -85,7 +85,7 @@ position = Vector2( 534, 648 )
 rotation = -3.14159
 
 [node name="Obstacle1_1" parent="Level1/1_1/1" instance=ExtResource( 2 )]
-position = Vector2( 72, 360 )
+position = Vector2( 82.3826, 360.472 )
 
 [node name="Obstacle1_2" parent="Level1/1_1/1" instance=ExtResource( 2 )]
 position = Vector2( 456, 360 )
@@ -101,7 +101,7 @@ position = Vector2( 264, 264 )
 position = Vector2( 264, 360 )
 
 [node name="Enemy1" parent="Level1/1_1/1" instance=ExtResource( 6 )]
-position = Vector2( 264, 168 )
+position = Vector2( 182.238, 183.431 )
 
 [node name="End" type="Node2D" parent="Level1/1_1/1"]
 position = Vector2( 540, 720 )

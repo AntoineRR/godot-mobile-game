@@ -30,6 +30,7 @@ weapon = ExtResource( 7 )
 [node name="Background" parent="." instance=ExtResource( 2 )]
 
 [node name="Foreground" parent="." instance=ExtResource( 9 )]
+visible = false
 
 [node name="GlobalMap" parent="." instance=ExtResource( 3 )]
 
@@ -170,7 +171,6 @@ __meta__ = {
 [node name="InvicibilityFrames" type="Timer" parent="."]
 wait_time = 0.5
 one_shot = true
-
 [connection signal="player_died" from="Player" to="." method="end_game"]
 [connection signal="player_finished_sub_level" from="Player" to="." method="sub_level_finished"]
 [connection signal="caught_player" from="Monster" to="Player" method="_on_Monster_caught_player"]

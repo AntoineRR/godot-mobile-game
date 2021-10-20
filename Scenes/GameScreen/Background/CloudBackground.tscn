@@ -122,20 +122,20 @@ void fragment() {
 
 [sub_resource type="ShaderMaterial" id=2]
 shader = SubResource( 1 )
-shader_param/pixel_amount = 150
-shader_param/cloudscale = 2.843
-shader_param/speed = -0.299
-shader_param/color1 = Color( 0.14902, 0.109804, 0.0235294, 1 )
-shader_param/threshold2 = 0.242
-shader_param/color2 = Color( 0.219608, 0.137255, 0.0470588, 1 )
-shader_param/threshold3 = 0.41
-shader_param/color3 = Color( 0.427451, 0.278431, 0.101961, 1 )
-shader_param/threshold4 = 0.558
-shader_param/color4 = Color( 0.560784, 0.431373, 0.14902, 1 )
-shader_param/threshold5 = 0.705
-shader_param/color5 = Color( 0.752941, 0.631373, 0.254902, 1 )
-shader_param/threshold6 = 0.904
-shader_param/color6 = Color( 0.882353, 0.807843, 0.584314, 1 )
+shader_param/pixel_amount = 200
+shader_param/cloudscale = 3.0
+shader_param/speed = -0.1
+shader_param/color1 = Color( 0, 0, 0, 1 )
+shader_param/threshold2 = 0.121
+shader_param/color2 = Color( 0.0392157, 0.0352941, 0.0117647, 1 )
+shader_param/threshold3 = 0.267
+shader_param/color3 = Color( 0.184314, 0.133333, 0.0705882, 1 )
+shader_param/threshold4 = 0.405
+shader_param/color4 = Color( 0.364706, 0.207843, 0.113725, 1 )
+shader_param/threshold5 = 0.622
+shader_param/color5 = Color( 0.694118, 0.486275, 0.211765, 1 )
+shader_param/threshold6 = 0.853
+shader_param/color6 = Color( 0.831373, 0.690196, 0.490196, 1 )
 
 [node name="CloudBackground" type="Sprite"]
 material = SubResource( 2 )

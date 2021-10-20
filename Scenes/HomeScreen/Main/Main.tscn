@@ -102,7 +102,6 @@ text = "Start"
 __meta__ = {
 "_edit_use_anchors_": false
 }
-
 [connection signal="pressed" from="CanvasLayer/VBoxContainer/Top/Options" to="." method="_on_Options_pressed"]
 [connection signal="pressed" from="CanvasLayer/VBoxContainer/Bottom/MarginContainer2/Credits_Button" to="." method="_on_Credits_Button_pressed"]
 [connection signal="pressed" from="CanvasLayer/VBoxContainer/Bottom/MarginContainer/Start" to="." method="_on_Start_pressed"]

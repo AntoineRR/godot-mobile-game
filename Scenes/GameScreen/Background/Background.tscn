@@ -1,10 +1,12 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=14 format=2]
 
 [ext_resource path="res://Assets/Placeholders/Background1.png" type="Texture" id=1]
 [ext_resource path="res://Scenes/GameScreen/Background/Background.gd" type="Script" id=2]
 [ext_resource path="res://Scenes/GameScreen/Background/CloudBackground.tscn" type="PackedScene" id=3]
 [ext_resource path="res://Assets/Placeholders/5.png" type="Texture" id=4]
 [ext_resource path="res://Scenes/GameScreen/Background/Cloud.tscn" type="PackedScene" id=5]
+[ext_resource path="res://Assets/Placeholders/habillage mur2.png" type="Texture" id=6]
+[ext_resource path="res://Assets/Placeholders/test batiment.png" type="Texture" id=7]
 
 [sub_resource type="Shader" id=1]
 code = "shader_type canvas_item;
@@ -150,35 +152,208 @@ void fragment() {
 }
 "
 
+[sub_resource type="ShaderMaterial" id=6]
+shader = SubResource( 1 )
+shader_param/pixel_amount = 150
+shader_param/cloudscale = 5.0
+shader_param/randomness = 21703.2
+shader_param/speed = -0.052
+shader_param/threshold1 = 0.833
+shader_param/color1 = Color( 0.0392157, 0.0352941, 0.0117647, 1 )
+shader_param/threshold2 = 2.0
+shader_param/color2 = Color( 0, 0, 0, 1 )
+shader_param/threshold3 = 2.0
+shader_param/color3 = Color( 0, 0, 0, 1 )
+
+[sub_resource type="Shader" id=4]
+code = "shader_type canvas_item;
+
+uniform int pixel_amount;
+uniform float cloudscale:hint_range(0.0, 5.0);
+uniform float randomness:hint_range(0.0,50000.0);
+uniform float speed:hint_range(-1.0, 1.0);
+
+uniform float threshold1:hint_range(0.0, 1.0);
+uniform vec4 color1:hint_color;
+uniform float threshold2:hint_range(0.0, 2.0);
+uniform vec4 color2:hint_color;
+uniform float threshold3:hint_range(0.0, 2.0);
+uniform vec4 color3:hint_color;
+
+const mat2 m = mat2( vec2(1.6,  1.2), vec2(-1.2,  1.6) );
+
+vec2 hash( vec2 p ) {
+	p = vec2(dot(p,vec2(127.1,311.7)), dot(p,vec2(269.5,183.3)));
+	return -1.0 + 2.0*fract(sin(p)*randomness);
+}
+
+float noise( in vec2 p ) {
+    const float K1 = 0.366025404; // (sqrt(3)-1)/2;
+    const float K2 = 0.211324865; // (3-sqrt(3))/6;
+	vec2 i = floor(p + (p.x+p.y)*K1);	
+    vec2 a = p - i + (i.x+i.y)*K2;
+    vec2 o = (a.x>a.y) ? vec2(1.0,0.0) : vec2(0.0,1.0); //vec2 of = 0.5 + 0.5*vec2(sign(a.x-a.y), sign(a.y-a.x));
+    vec2 b = a - o + K2;
+	vec2 c = a - 1.0 + 2.0*K2;
+    vec3 h = max(0.5-vec3(dot(a,a), dot(b,b), dot(c,c) ), 0.0 );
+	vec3 n = h*h*h*h*vec3( dot(a,hash(i+0.0)), dot(b,hash(i+o)), dot(c,hash(i+1.0)));
+    return dot(n, vec3(70.0));	
+}
+
+float fbm(vec2 n) {
+	float total = 0.0, amplitude = 0.1;
+	for (int i = 0; i < 7; i++) {
+		total += noise(n) * amplitude;
+		n = m * n;
+		amplitude *= 0.4;
+	}
+	return total;
+}
+
+vec4 mask(vec2 uvPos) {
+	vec4 mask = vec4(1.0,1.0,1.0,0);
+	if (uvPos.y < 0.5) {
+		mask.a = clamp(mask.a + uvPos.y*4.0, 0.0, 1.0);
+	}
+	else {
+		mask.a = clamp(mask.a + (1.0-(uvPos.y-0.5)*2.0)*2.0, 0.0, 1.0);
+	}
+	return mask;
+}
+
+vec4 apply_threshold(vec4 col, vec2 uv) {
+	if (col.a > threshold1) {
+		if (col.a + (1.0 - uv.y)*0.9 > threshold2) {
+			if (col.a + 1.9*(1.0 - uv.y)*0.9 > threshold3) {
+				col = vec4(color3.rgb, 1.0);
+			}
+			else {
+				col = vec4(color2.rgb, 1.0);
+			}
+		}
+		else {
+			col = vec4(color1.rgb, 1.0);
+		}
+	}
+	else {
+		col = vec4(0,0,0,0);
+	}
+	return col;
+}
+
+void fragment() {
+	vec2 ps = TEXTURE_PIXEL_SIZE;
+    vec2 ratio = vec2(1, ps.x / ps.y);
+	vec2 pixels = vec2(float(pixel_amount)) * ratio;
+	vec2 grid_uv = round(UV * pixels) * ratio / pixels;
+    float time = TIME * speed;
+    float q = fbm(grid_uv * cloudscale * 0.5);
+    
+    //ridged noise shape
+	float r = 0.0;
+	vec2 uv = grid_uv * cloudscale;
+    uv -= q - time;
+    float weight = 0.8;
+    for (int i=0; i<8; i++){
+		r += abs(weight*noise( uv ));
+        uv = m*uv + time;
+		weight *= 0.7;
+    }
+    
+    //noise shape
+	float f = 0.0;
+	uv = grid_uv * cloudscale;
+    uv -= q - time;
+    weight = 0.7;
+    for (int i=0; i<8; i++){
+		f += weight*noise( uv );
+        uv = m*uv + time;
+		weight *= 0.6;
+    }
+    
+    f *= r + f;
+	
+	//noise colour
+    float c = 0.0;
+    uv = grid_uv * cloudscale * 2.0;
+    time = TIME * speed * 2.0;
+    uv -= q - time;
+    weight = 0.4;
+    for (int i=0; i<7; i++){
+		c += weight*noise( uv );
+        uv = m*uv + time;
+		weight *= 0.6;
+    }
+    
+    //noise ridge colour
+    float c1 = 0.0;
+    uv = grid_uv * cloudscale * 3.0;
+    time = TIME * speed * 3.0;
+    uv -= q - time;
+    weight = 0.4;
+    for (int i=0; i<7; i++){
+		c1 += abs(weight*noise( uv ));
+        uv = m*uv + time;
+		weight *= 0.6;
+    }
+	
+    c += c1;
+	
+	vec4 col = vec4(f) * mask(grid_uv) + 0.5*mask(grid_uv);
+	col = apply_threshold(col, grid_uv);
+
+	col = col + 0.05*vec4(c)*col.a;
+
+	COLOR = col;
+	//COLOR = mask(grid_uv);
+}
+"
+
+[sub_resource type="ShaderMaterial" id=5]
+shader = SubResource( 4 )
+shader_param/pixel_amount = 140
+shader_param/cloudscale = 2.382
+shader_param/randomness = 29473.7
+shader_param/speed = -0.04
+shader_param/threshold1 = 0.684
+shader_param/color1 = Color( 0.694118, 0.486275, 0.211765, 1 )
+shader_param/threshold2 = 2.0
+shader_param/color2 = Color( 0.701961, 0.494118, 0.215686, 1 )
+shader_param/threshold3 = 1.433
+shader_param/color3 = Color( 0.694118, 0.486275, 0.211765, 1 )
+
 [sub_resource type="ShaderMaterial" id=2]
 shader = SubResource( 1 )
-shader_param/pixel_amount = 120
-shader_param/cloudscale = 1.161
-shader_param/randomness = 21578.9
-shader_param/speed = -0.116
-shader_param/threshold1 = 0.484
-shader_param/color1 = Color( 0.27451, 0.211765, 0.0666667, 1 )
-shader_param/threshold2 = 0.935
-shader_param/color2 = Color( 0.403922, 0.309804, 0.133333, 1 )
-shader_param/threshold3 = 1.84
-shader_param/color3 = Color( 0.686275, 0.521569, 0.266667, 1 )
+shader_param/pixel_amount = 140
+shader_param/cloudscale = 1.359
+shader_param/randomness = 18823.0
+shader_param/speed = -0.04
+shader_param/threshold1 = 0.771
+shader_param/color1 = Color( 0.694118, 0.486275, 0.211765, 1 )
+shader_param/threshold2 = 0.672
+shader_param/color2 = Color( 0.831373, 0.690196, 0.490196, 1 )
+shader_param/threshold3 = 1.645
+shader_param/color3 = Color( 0.831373, 0.690196, 0.490196, 1 )
 
 [sub_resource type="ShaderMaterial" id=3]
 shader = SubResource( 1 )
-shader_param/pixel_amount = 120
-shader_param/cloudscale = 1.319
-shader_param/randomness = 18947.4
-shader_param/speed = -0.095
-shader_param/threshold1 = 0.463
-shader_param/color1 = Color( 0.227451, 0.184314, 0.0823529, 1 )
-shader_param/threshold2 = 0.935
-shader_param/color2 = Color( 0.545098, 0.427451, 0.196078, 1 )
-shader_param/threshold3 = 1.84
-shader_param/color3 = Color( 0.792157, 0.721569, 0.435294, 1 )
+shader_param/pixel_amount = 150
+shader_param/cloudscale = 5.0
+shader_param/randomness = 21703.2
+shader_param/speed = -0.052
+shader_param/threshold1 = 0.845
+shader_param/color1 = Color( 0.831373, 0.690196, 0.490196, 1 )
+shader_param/threshold2 = 0.657
+shader_param/color2 = Color( 0.831373, 0.690196, 0.490196, 1 )
+shader_param/threshold3 = 0.0
+shader_param/color3 = Color( 0.94902, 0.862745, 0.67451, 1 )
 
 [node name="Background" type="Node2D"]
 pause_mode = 1
 script = ExtResource( 2 )
+__meta__ = {
+"_edit_horizontal_guides_": [  ]
+}
 
 [node name="ParallaxBackground" type="ParallaxBackground" parent="."]
 scroll_ignore_camera_zoom = true
@@ -190,31 +365,37 @@ motion_offset = Vector2( 0, -480 )
 [node name="Sprite" parent="ParallaxBackground/ParallaxLayer" instance=ExtResource( 3 )]
 position = Vector2( 270, 958 )
 
+[node name="Sprite4" parent="ParallaxBackground/ParallaxLayer" instance=ExtResource( 5 )]
+material = SubResource( 6 )
+position = Vector2( 270.05, 1738.19 )
+scale = Vector2( 1, 0.803581 )
+
 [node name="ParallaxLayer5" type="ParallaxLayer" parent="ParallaxBackground"]
 motion_scale = Vector2( 1, 0.1 )
 motion_offset = Vector2( 0, -480 )
 
-[node name="Sprite" parent="ParallaxBackground/ParallaxLayer5" instance=ExtResource( 5 )]
+[node name="Sprite2" parent="ParallaxBackground/ParallaxLayer5" instance=ExtResource( 5 )]
+position = Vector2( 271.414, 1531.73 )
+
+[node name="Sprite3" parent="ParallaxBackground/ParallaxLayer5" instance=ExtResource( 5 )]
+material = SubResource( 5 )
+position = Vector2( 272.279, 1008.14 )
+
+[node name="Sprite5" parent="ParallaxBackground/ParallaxLayer5" instance=ExtResource( 5 )]
 material = SubResource( 2 )
-position = Vector2( 267, 562 )
-
-[node name="ParallaxLayer4" type="ParallaxLayer" parent="ParallaxBackground"]
-motion_scale = Vector2( 1, 0.1 )
-motion_offset = Vector2( 0, -480 )
-
-[node name="Sprite" parent="ParallaxBackground/ParallaxLayer4" instance=ExtResource( 5 )]
-position = Vector2( 275, 1021 )
+position = Vector2( 272.16, 601.012 )
 
 [node name="ParallaxLayer2" type="ParallaxLayer" parent="ParallaxBackground"]
 motion_scale = Vector2( 1, 0.1 )
 motion_offset = Vector2( 0, -480 )
 
-[node name="Sprite" parent="ParallaxBackground/ParallaxLayer2" instance=ExtResource( 5 )]
-position = Vector2( 273, 1451 )
-
 [node name="ParallaxLayer3" type="ParallaxLayer" parent="ParallaxBackground"]
 motion_scale = Vector2( 1, 0.1 )
 motion_offset = Vector2( 0, -480 )
+
+[node name="Sprite6" type="Sprite" parent="ParallaxBackground/ParallaxLayer3"]
+position = Vector2( 85.8652, 1390.68 )
+texture = ExtResource( 6 )
 
 [node name="Sprite" type="Sprite" parent="ParallaxBackground/ParallaxLayer3"]
 position = Vector2( 273, 186 )
@@ -224,23 +405,28 @@ texture = ExtResource( 4 )
 motion_scale = Vector2( 1, 0.1 )
 motion_offset = Vector2( 0, -480 )
 
+[node name="Sprite2" type="Sprite" parent="ParallaxBackground/ParallaxLayer6"]
+position = Vector2( 105.212, 404.433 )
+texture = ExtResource( 7 )
+
 [node name="Sprite" parent="ParallaxBackground/ParallaxLayer6" instance=ExtResource( 5 )]
 material = SubResource( 3 )
-position = Vector2( 270, 249.609 )
+position = Vector2( 270.05, 217.203 )
+scale = Vector2( 1, 0.803581 )
 
-[node name="Sprite2" parent="ParallaxBackground/ParallaxLayer6" instance=ExtResource( 5 )]
-material = SubResource( 3 )
-position = Vector2( 267, 2728 )
+[node name="ParallaxLayer4" type="ParallaxLayer" parent="ParallaxBackground"]
+motion_scale = Vector2( 1, 0.1 )
+motion_offset = Vector2( 0, -480 )
 
 [node name="ParallaxBackground2" type="ParallaxBackground" parent="."]
 scroll_ignore_camera_zoom = true
 
 [node name="ParallaxLayer" type="ParallaxLayer" parent="ParallaxBackground2"]
-visible = false
 motion_scale = Vector2( 1, 0.1 )
 motion_offset = Vector2( 0, -480 )
 
 [node name="Sprite" type="Sprite" parent="ParallaxBackground2/ParallaxLayer"]
+visible = false
 position = Vector2( 270, 958 )
 texture = ExtResource( 1 )
 
